@@ -46,7 +46,7 @@ deployer:
             allowdelete: on
             passiveMode: on
             preprocess: off
-            
+
             ignore:
                 # Common
                 - .git*
@@ -86,7 +86,7 @@ deployer:
 
 ### More webs <=> more sections
 
-```
+```yaml
 deployer:
     section:
         example.com:
@@ -195,3 +195,4 @@ $container = $configurator->createContainer();
 # Create Deploy Manager
 $dm = $container->getByType('Minetro\Deployer\Manager');
 $dm->deploy();
+```
