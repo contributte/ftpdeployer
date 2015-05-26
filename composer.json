@@ -1,0 +1,21 @@
+{
+  "name": "minetro/deployer-extension",
+  "description": "Ftp-Deployment Extension for Nette",
+  "type": "library",
+  "license": ["BSD-3-Clause"],
+  "homepage": "https://github.com/minetro/deployer-extension",
+  "authors": [
+    {
+      "name": "Milan Felix Sulc",
+      "homepage": "http://jfx.cz"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "nette/di": ">=2.3.0,<2.4.0",
+    "dg/ftp-deployment": "~2.1.0"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  }
+}
