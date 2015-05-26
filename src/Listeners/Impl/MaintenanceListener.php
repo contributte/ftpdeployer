@@ -38,6 +38,12 @@ class MaintenanceListener implements BeforeListener, AfterListener
         self::MODE_RENAME => [],
     ];
 
+    /** @var Server */
+    private $server;
+
+    /** @var Logger */
+    private $logger;
+
     /** @var array */
     private $plugin;
 
@@ -54,34 +60,28 @@ class MaintenanceListener implements BeforeListener, AfterListener
      */
     public function onBefore(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer)
     {
-        $plugins = $config->getPlugins();
-        $plugin = isset($plugins[self::PLUGIN]) ? $plugins[self::PLUGIN] : NULL;
-        $pluginName = ucfirst(self::PLUGIN);
+        if (!$this->load($config, $section, $server, $logger, $deployer)) return;
 
-        // Has plugin filled config?
-        if (!$plugin) {
-            $logger->log("$pluginName: please fill config", 'red');
-            return;
+        // Run maintenance procedures ==========================================
+
+        if (isset($this->plugin[self::MODE_REWRITE]) && is_array($this->plugin[self::MODE_REWRITE])) {
+            $time = time();
+
+            $this->log('start rewriting');
+            $this->doRewrite($this->plugin[self::MODE_REWRITE]);
+
+            $time = time() - $time;
+            $this->log("rewriting finished (in $time seconds)", 'lime');
         }
 
-        // Validate plugin config
-        try {
-            Helpers::validateConfig($this->defaults, $config, self::PLUGIN);
-        } catch (InvalidStateException $ex) {
-            $logger->log(sprintf("%s: bad configuration (%s)", $pluginName, $ex->getMessage()), 'red');
-            return;
-        }
+        if (isset($this->plugin[self::MODE_RENAME]) && is_array($this->plugin[self::MODE_RENAME])) {
+            $time = time();
 
-        // Choose maintenance mode
-        switch ($plugin['mode']) {
-            case self::MODE_REWRITE:
-                $this->doRewrite($plugin[self::MODE_REWRITE]);
-                break;
-            case self::MODE_RENAME:
-                $this->doRename($plugin[self::MODE_REWRITE]);
-                break;
-            default:
-                throw new InvalidStateException('Unknown mode: ' . $plugin['mode']);
+            $this->log('start renaming');
+            $this->doRename($this->plugin[self::MODE_RENAME]);
+
+            $time = time() - $time;
+            $this->log("renaming finished (in $time seconds)", 'lime');
         }
     }
 
@@ -95,20 +95,30 @@ class MaintenanceListener implements BeforeListener, AfterListener
      */
     public function onAfter(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer)
     {
-        $this->load($config, $section, $server, $logger, $deployer);
+        if (!$this->load($config, $section, $server, $logger, $deployer)) return;
 
-        // Choose maintenance mode
-        switch ($this->plugin['mode']) {
-            case self::MODE_REWRITE:
-                $this->doRewrite($this->batch[self::MODE_REWRITE], TRUE);
-                $this->batch[self::MODE_REWRITE] = [];
-                break;
-            case self::MODE_RENAME:
-                $this->doRename($this->batch[self::MODE_RENAME], TRUE);
-                $this->batch[self::MODE_RENAME] = [];
-                break;
-            default:
-                throw new InvalidStateException('Unknown mode: ' . $this->plugin['mode']);
+        // Run maintenance procedures ==========================================
+
+        if (isset($this->plugin[self::MODE_REWRITE]) && is_array($this->plugin[self::MODE_REWRITE])) {
+            $time = time();
+
+            $this->log('revert - start rewriting');
+            $this->doRewrite($this->batch[self::MODE_REWRITE], TRUE);
+
+            $time = time() - $time;
+            $this->log("revert - rewriting finished (in $time seconds)", 'lime');
+            $this->batch[self::MODE_REWRITE] = [];
+        }
+
+        if (isset($this->plugin[self::MODE_RENAME]) && is_array($this->plugin[self::MODE_RENAME])) {
+            $time = time();
+
+            $this->log('revert - start renaming');
+            $this->doRename($this->batch[self::MODE_RENAME], TRUE);
+
+            $time = time() - $time;
+            $this->log("revert - renaming finished (in $time seconds)", 'lime');
+            $this->batch[self::MODE_RENAME] = [];
         }
     }
 
@@ -122,10 +132,13 @@ class MaintenanceListener implements BeforeListener, AfterListener
      * @param Server $server
      * @param Logger $logger
      * @param Deployer $deployer
-     * @return void
+     * @return bool
      */
     private function load(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer)
     {
+        $this->server = $server;
+        $this->logger = $logger;
+
         $plugins = $config->getPlugins();
         $this->plugin = isset($plugins[self::PLUGIN]) ? $plugins[self::PLUGIN] : NULL;
         $this->pluginName = ucfirst(self::PLUGIN);
@@ -133,16 +146,27 @@ class MaintenanceListener implements BeforeListener, AfterListener
         // Has plugin filled config?
         if (!$this->plugin) {
             $logger->log("{$this->pluginName}: please fill config", 'red');
-            return;
+            return FALSE;
         }
 
         try {
             // Validate plugin config
-            Helpers::validateConfig($this->defaults, $config, self::PLUGIN);
+            Helpers::validateConfig($this->defaults, $this->plugin, self::PLUGIN);
         } catch (InvalidStateException $ex) {
-            $logger->log(sprintf("%s: bad configuration (%)", $this->pluginName, $ex->getMessage()), 'red');
-            return;
+            $logger->log(sprintf("%s: bad configuration (%s)", $this->pluginName, $ex->getMessage()), 'red');
+            return FALSE;
         }
+
+        return TRUE;
+    }
+
+    /**
+     * @param string $message
+     * @param string $color
+     */
+    private function log($message, $color = NULL)
+    {
+        $this->logger->log("{$this->pluginName}: $message", $color);
     }
 
     /**
@@ -162,19 +186,24 @@ class MaintenanceListener implements BeforeListener, AfterListener
 
             list ($file, $replaceBy) = $pair;
 
-            if (!$reverse) {
+            if ($reverse) {
                 ## REVERSE MODE
                 // #1 revert: replace by file
-                FileSystem::rename($file, $replaceBy);
+                $this->server->renameFile($file, $replaceBy);
+                $this->log(sprintf('rename from [%s] to [%s]', $file, $replaceBy));
 
                 // 2# maintenance file rename to original file
-                FileSystem::rename($file . '.' . self::MAINTENANCE_EXTENSION, $file);
+                $this->server->renameFile($file . '.' . self::MAINTENANCE_EXTENSION, $file);
+                $this->log(sprintf('rename from [%s] to [%s]', $file . '.' . self::MAINTENANCE_EXTENSION, $file));
             } else {
+                ## NORMAL MODE
                 // 1# rename to maintenance file
-                FileSystem::rename($file, $file . '.' . self::MAINTENANCE_EXTENSION);
+                $this->server->renameFile($file, $file . '.' . self::MAINTENANCE_EXTENSION);
+                $this->log(sprintf('rename from [%s] to [%s]', $file, $file . '.' . self::MAINTENANCE_EXTENSION));
 
                 // #2 replace by file
-                FileSystem::rename($replaceBy, $file);
+                $this->server->renameFile($replaceBy, $file);
+                $this->log(sprintf('rename from [%s] to [%s]', $replaceBy, $file));
 
                 // 3# store to batch
                 $this->batch[self::MODE_REWRITE][] = [$file, $replaceBy];
@@ -196,10 +225,11 @@ class MaintenanceListener implements BeforeListener, AfterListener
             list ($old, $new) = $pair;
 
             // 1# rename to new file
-            FileSystem::rename($old, $new);
+            $this->server->renameFile($old, $new);
+            $this->log(sprintf('rename from [%s] to [%s]', $old, $new));
 
-            // 2# store to batch
             if (!$reverse) {
+                // 2# store to batch
                 $this->batch[self::MODE_RENAME][] = [$new, $old];
             }
         }
