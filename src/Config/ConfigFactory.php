@@ -36,16 +36,24 @@ class ConfigFactory
                 $mode = Config::MODE_TEST;
         }
 
+        // Set mode (run|generate|test)
         $config->setMode($mode);
         $config->setLogFile($this->data['config']['logFile']);
         $config->setTempDir(isset($this->data['config']['tempDir']) ? $this->data['config']['tempDir'] : sys_get_temp_dir() . '/deployment');
 
+        // Set or detect colors support
         if ($this->data['config']['colors'] !== NULL) {
             $config->setColors((bool)$this->data['config']['colors']);
         } else {
             $config->setColors(PHP_SAPI === 'cli' && ((function_exists('posix_isatty') && posix_isatty(STDOUT))
                     || getenv('ConEmuANSI') === 'ON' || getenv('ANSICON') !== FALSE));
         }
+
+        // Set user data
+        $config->setUserdata($this->data['config']['userdata']);
+
+        // Set plugins
+        $config->setPlugins($this->data['config']['plugins']);
 
         // Parse sections
         foreach ($this->data['sections'] as $name => $sdata) {

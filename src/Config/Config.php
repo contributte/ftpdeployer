@@ -25,6 +25,12 @@ class Config
     /** @var Section */
     private $sections = [];
 
+    /** @var array */
+    private $userdata = [];
+
+    /** @var array */
+    private $plugins = [];
+
     /**
      * @return string
      */
@@ -108,8 +114,59 @@ class Config
     /**
      * @param Section $section
      */
-    public function addSection(Section $section) {
+    public function addSection(Section $section)
+    {
         $this->sections[] = $section;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserdata()
+    {
+        return $this->userdata;
+    }
+
+    /**
+     * @param array $userdata
+     */
+    public function setUserdata($userdata)
+    {
+        $this->userdata = $userdata;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $data
+     */
+    public function addUserdata($key, $data)
+    {
+        $this->userdata[$key] = $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlugins()
+    {
+        return $this->plugins;
+    }
+
+    /**
+     * @param array $plugins
+     */
+    public function setPlugins($plugins)
+    {
+        $this->plugins = $plugins;
+    }
+
+    /**
+     * @param string $name
+     * @param array $data
+     */
+    public function addPlugin($name, array $data)
+    {
+        $this->plugins[$name] = $data;
     }
 
 }

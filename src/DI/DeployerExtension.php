@@ -24,6 +24,8 @@ final class DeployerExtension extends CompilerExtension
             'colors' => NULL,
         ],
         'sections' => [],
+        'userdata' => [],
+        'plugins' => [],
     ];
 
     /** @var array */
