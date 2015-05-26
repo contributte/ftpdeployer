@@ -33,7 +33,7 @@ parameters:
 deployer:
     config:
         mode: run
-        logFile: %appDir%/log/deployer-%date%.log
+        logFile: %appDir%/log/deployer.log
         tempDir: %appDir%/temp
         colors: off
 
