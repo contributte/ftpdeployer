@@ -45,11 +45,17 @@ class Runner
         $time = time();
         $this->logger->log("Started at " . date('[Y/m/d H:i]'));
 
+        // Get sections and get sections names
+        $sections = $config->getSections();
+        $sectionNames = array_map(function ($s) {
+            return $s->getName();
+        }, $sections);
+
         // Show info
-        $this->logger->log(sprintf('Found sections: %d (%s)', count($config->getSections()), implode(',', array_keys($config->getSections()))));
+        $this->logger->log(sprintf('Found sections: %d (%s)', count($sectionNames), implode(',', $sectionNames)));
 
         // Process all sections
-        foreach ($config->getSections() as $section) {
+        foreach ($sections as $section) {
             // Show info
             $this->logger->log("\nDeploying section [{$section->getName()}]");
 
