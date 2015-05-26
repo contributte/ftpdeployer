@@ -17,5 +17,6 @@
   },
   "autoload": {
     "classmap": ["src/"]
-  }
+  },
+  "bin": ["bin/deploy", "bin/deploy.php"]
 }
