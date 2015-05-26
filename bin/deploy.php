@@ -1,9 +1,10 @@
 <?php
 
 define('CWD', __DIR__);
+define('ROOT', realpath(CWD . '/../../../..'));
 
 // Load composer
-if (@!include __DIR__ . '/../vendor/autoload.php') {
+if (@!include ROOT . '/vendor/autoload.php') {
     echo 'Composer autoload.php not found. Did you call composer install|update?';
     exit(1);
 }
@@ -11,28 +12,27 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 // Test files masks
 $tests = [
     // root/deploy[.php]
-    realpath(CWD . '/../../deploy'),
-    realpath(CWD . '/../../deploy.php'),
+    ROOT. '/deploy',
+    ROOT. '/deploy.php',
 
     // root/bin/deploy[.php]
-    realpath(CWD . '/../../bin/deploy'),
-    realpath(CWD . '/../../bin/deploy.php'),
+    ROOT . '/bin/deploy',
+    ROOT . '/bin/deploy.php',
 
     // root/bin/deploy[.php]
-    realpath(CWD . '/../../deploy/deploy'),
-    realpath(CWD . '/../../deploy/deploy.php'),
+    ROOT . '/deploy/deploy',
+    ROOT . '/deploy/deploy.php',
 ];
 
 // Test files
 foreach ($tests as $test) {
-    if (file_exists($tests)) {
+    if (file_exists($test)) {
         require $test;
         break;
     }
 }
 
 // Print info
-echo "Tried files:\n";
 foreach ($tests as $test) {
     echo "\t- $test\n";
 }
