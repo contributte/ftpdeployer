@@ -7,7 +7,7 @@
 
 ## Install
 ```sh
-$ composer require minetro/deployer-extension:~1.0.0
+$ composer require minetro/deployer-extension:~1.1.0
 ```
 
 ## Configuration
