@@ -95,13 +95,13 @@ deployer:
             ...
 ```
 
-### Listeners
+## Listeners
 
 You can register service which implement `AfterListener` or `BeforeListener`.
 
-Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/example).
+Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/examples).
 
-#### ComposerUpdateListener
+### `ComposerUpdateListener`
 
 This is prepared listener that runs command:
 
@@ -109,13 +109,14 @@ This is prepared listener that runs command:
 composer update --no-dev --prefer-dist --optimize-autoloader -d $DIR
 ```
 
-##### Parameters:
+#### Parameters
 
-- `$DIR` is **section.local**.
+- `$DIR` is **section.local**
+
 
 ## Deploy
 
-See example [scripts here](https://github.com/minetro/deployer-extension/tree/master/example). 
+See example [scripts here](https://github.com/minetro/deployer-extension/tree/master/examples). 
 
 ### Automatic
 
@@ -161,7 +162,7 @@ public function actionDeploy()
 }
 ```
 
-### Prepared deploy script (deploy.php & deploy)
+### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy)
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
