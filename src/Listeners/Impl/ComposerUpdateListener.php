@@ -8,6 +8,7 @@ use Deployment\Server;
 use Minetro\Deployer\Config\Config;
 use Minetro\Deployer\Config\Section;
 use Minetro\Deployer\Listeners\BeforeListener;
+use Minetro\Deployer\Utils\System;
 
 class ComposerUpdateListener implements BeforeListener
 {
@@ -28,13 +29,13 @@ class ComposerUpdateListener implements BeforeListener
         $logger->log(sprintf('Composer: composer update --no-dev --prefer-dist --optimize-autoloader -d %s', $cwd));
 
         // Execute command
-        passthru(sprintf('composer update --no-dev --prefer-dist --optimize-autoloader -d %s', $cwd), $return);
+        System::run(sprintf('composer update --no-dev --prefer-dist --optimize-autoloader -d %s', $cwd), $return);
 
         // Display result
         if ($return) {
-            $logger->log('Composer failed: ' . $return, 'red');
+            $logger->log('Composer: FAILED (' . $return . ')', 'red');
         } else {
-            $logger->log('Composer optimized', 'green');
+            $logger->log('Composer: UPDATED / OPTIMIZED', 'green');
         }
     }
 }
