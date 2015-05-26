@@ -110,7 +110,8 @@ class Runner
 
         // Set-up preprocessing
         if ($section->isPreprocess()) {
-            $deployment->preprocessMasks = empty($section->getPreprocessMasks()) ? ['*.js', '*.css'] : $section->getPreprocessMasks();
+            $masks = $section->getPreprocessMasks();
+            $deployment->preprocessMasks = empty($masks) ? ['*.js', '*.css'] : $masks;
             $preprocessor = new Preprocessor($this->logger);
             $deployment->addFilter('js', [$preprocessor, 'expandApacheImports']);
             $deployment->addFilter('js', [$preprocessor, 'compress'], TRUE);
@@ -126,7 +127,8 @@ class Runner
         );
 
         // Basic settings
-        $deployment->deploymentFile = empty($section->getDeployFile()) ? $deployment->deploymentFile : $section->getDeployFile();
+        $deployFile = $section->getDeployFile();
+        $deployment->deploymentFile = empty($deployFile) ? $deployment->deploymentFile : $deployFile;
         $deployment->allowDelete = $section->isAllowDelete();
         $deployment->toPurge = $section->getPurges();
         $deployment->testMode = $section->isTestMode();
