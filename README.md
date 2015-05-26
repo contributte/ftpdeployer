@@ -1,4 +1,4 @@
-# Deployer Extensions
+# Deployer Extension
 
 [![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat)](https://packagist.org/packages/minetro/deployer-extension)
 [![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat)](https://packagist.org/packages/minetro/deployer-extension)
@@ -36,7 +36,14 @@ deployer:
         logFile: %appDir%/log/deployer.log
         tempDir: %appDir%/temp
         colors: off
+        
+    # User specific variables
+    userdata: 
 
+    # Plugins specification (see more in PLUGINS.md)
+    plugins:
+        
+    # Web sections
     sections:
         web1:
             remote: %deploy.protocol%://%deploy.user%:%deploy.password%@%deploy.scheme%
@@ -101,29 +108,7 @@ You can register service which implement `AfterListener` or `BeforeListener`.
 
 Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/examples).
 
-### `ComposerInstallListener`
-
-This is prepared listener that runs command:
-
-```sh
-composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
-```
-
-#### Parameters
-
-- `$DIR` is **section.local**
-
-### `ComposerUpdateListener`
-
-This is prepared listener that runs command:
-
-```sh
-composer update --no-dev --prefer-dist --optimize-autoloader -d $DIR
-```
-
-#### Parameters
-
-- `$DIR` is **section.local**
+Or in special [`PLUGINS.md`](https://github.com/minetro/deployer-extension/tree/master/PLUGINS.md) readme file.
 
 ## Deploy
 
