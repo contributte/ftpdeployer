@@ -12,8 +12,8 @@ if (@!include ROOT . '/vendor/autoload.php') {
 // Test files masks
 $tests = [
     // root/deploy[.php]
-    ROOT. '/deploy',
-    ROOT. '/deploy.php',
+    ROOT . '/deploy',
+    ROOT . '/deploy.php',
 
     // root/bin/deploy[.php]
     ROOT . '/bin/deploy',
@@ -33,9 +33,10 @@ foreach ($tests as $test) {
 }
 
 // Print info
+echo 'Tested common deploy files:\n';
 foreach ($tests as $test) {
     echo "\t- $test\n";
 }
 
-echo 'Deploy file not found. Please run deploy by yourself.';
+echo 'Deploy file (deploy|deploy.php) not found. Please run deploy by yourself.';
 exit(1);
