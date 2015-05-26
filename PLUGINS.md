@@ -11,6 +11,7 @@ You have to register to `before` and to `after` also (!).
 ### Rewrite
 
 Before: *backup origin file, rename destination file to source file*
+
 After: *revert rewriting*
 
 ```yaml
@@ -25,6 +26,7 @@ deployer:
 ### Rename
 
 Before: *rename origin file to destination file*
+
 After: *revert renaming*
 
 ```yaml
