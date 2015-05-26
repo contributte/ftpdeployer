@@ -13,6 +13,7 @@
   "require": {
     "php": ">=5.4",
     "nette/di": ">=2.3.0,<2.4.0",
+    "nette/utils": ">=2.3.0,<2.4.0",
     "dg/ftp-deployment": "~2.1.0"
   },
   "autoload": {
