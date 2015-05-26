@@ -175,11 +175,14 @@ public function actionDeploy()
 
 ### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy))
 
+Place it by yourself (for example root/deploy.php). Be careful about `local` and `tempDir`, there depend on location.
+
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
 # Configurator
 $configurator = new Nette\Configurator;
+$configurator->setDebugMode(TRUE);
 $configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()

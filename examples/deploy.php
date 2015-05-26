@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 # Configurator
 $configurator = new Nette\Configurator;
+$configurator->setDebugMode(TRUE);
 $configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()
