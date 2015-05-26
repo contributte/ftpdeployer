@@ -101,6 +101,18 @@ You can register service which implement `AfterListener` or `BeforeListener`.
 
 Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/examples).
 
+### `ComposerInstallListener`
+
+This is prepared listener that runs command:
+
+```sh
+composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
+```
+
+#### Parameters
+
+- `$DIR` is **section.local**
+
 ### `ComposerUpdateListener`
 
 This is prepared listener that runs command:
@@ -112,7 +124,6 @@ composer update --no-dev --prefer-dist --optimize-autoloader -d $DIR
 #### Parameters
 
 - `$DIR` is **section.local**
-
 
 ## Deploy
 
@@ -162,7 +173,7 @@ public function actionDeploy()
 }
 ```
 
-### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy)
+### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy))
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
