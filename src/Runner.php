@@ -46,12 +46,12 @@ class Runner
         $this->logger->log("Started at " . date('[Y/m/d H:i]'));
 
         // Show info
-        $this->logger->log(sprintf('Found sections: %d', count($config->getSections())));
+        $this->logger->log(sprintf('Found sections: %d (%s)', count($config->getSections()), implode(',', array_keys($config->getSections()))));
 
         // Process all sections
         foreach ($config->getSections() as $section) {
             // Show info
-            $this->logger->log("\nDeploying {$section->getName()}");
+            $this->logger->log("\nDeploying section [{$section->getName()}]");
 
             // Create deployer
             $deployment = $this->createDeployer($config, $section);
