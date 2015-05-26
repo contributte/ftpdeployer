@@ -50,10 +50,10 @@ class ConfigFactory
         }
 
         // Set user data
-        $config->setUserdata($this->data['config']['userdata']);
+        $config->setUserdata($this->data['userdata']);
 
         // Set plugins
-        $config->setPlugins($this->data['config']['plugins']);
+        $config->setPlugins($this->data['plugins']);
 
         // Parse sections
         foreach ($this->data['sections'] as $name => $sdata) {
