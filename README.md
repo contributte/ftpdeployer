@@ -1,9 +1,15 @@
 # Deployer Extension
 
-[![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat)](https://packagist.org/packages/minetro/deployer-extension)
-[![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat)](https://packagist.org/packages/minetro/deployer-extension)
-
 [Ftp-Deployment](https://github.com/dg/ftp-deployment) Extension for Nette. 
+
+-----
+
+[![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
+[![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
+
+## Discussion / Help
+
+[![Join the chat at https://gitter.im/Markette/Gopay](https://img.shields.io/gitter/room/minetro/nette.svg?style=flat-square)](https://gitter.im/minetro/nette?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Install
 ```sh
