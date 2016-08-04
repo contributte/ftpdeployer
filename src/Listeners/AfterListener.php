@@ -20,4 +20,5 @@ interface AfterListener
      * @return void
      */
     function onAfter(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer);
+
 }

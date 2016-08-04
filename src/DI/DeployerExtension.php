@@ -4,7 +4,6 @@ namespace Minetro\Deployer\DI;
 
 use Minetro\Deployer\Config\Config;
 use Nette\DI\CompilerExtension;
-use Nette\DI\Helpers;
 use Nette\DI\Statement;
 
 /**

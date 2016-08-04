@@ -11,8 +11,6 @@ use Minetro\Deployer\Listeners\AfterListener;
 use Minetro\Deployer\Listeners\BeforeListener;
 use Minetro\Deployer\Utils\Helpers;
 use Nette\InvalidStateException;
-use Nette\NotImplementedException;
-use Nette\Utils\FileSystem;
 
 class MaintenanceListener implements BeforeListener, AfterListener
 {
@@ -146,6 +144,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
         // Has plugin filled config?
         if (!$this->plugin) {
             $logger->log("{$this->pluginName}: please fill config", 'red');
+
             return FALSE;
         }
 
@@ -154,6 +153,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
             Helpers::validateConfig($this->defaults, $this->plugin, self::PLUGIN);
         } catch (InvalidStateException $ex) {
             $logger->log(sprintf("%s: bad configuration (%s)", $this->pluginName, $ex->getMessage()), 'red');
+
             return FALSE;
         }
 

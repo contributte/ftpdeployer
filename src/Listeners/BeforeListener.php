@@ -20,4 +20,5 @@ interface BeforeListener
      * @return void
      */
     function onBefore(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer);
+
 }

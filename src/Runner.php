@@ -16,10 +16,6 @@ use Minetro\Deployer\Config\Config;
 use Minetro\Deployer\Config\Section;
 use Minetro\Deployer\Exceptions\DeployException;
 
-/**
- * Class Runner
- *
- */
 class Runner
 {
 
@@ -47,7 +43,7 @@ class Runner
 
         // Get sections and get sections names
         $sections = $config->getSections();
-        $sectionNames = array_map(function ($s) {
+        $sectionNames = array_map(function (Section $s) {
             return $s->getName();
         }, $sections);
 
@@ -140,7 +136,7 @@ class Runner
         }
         $deployment->runBefore = $bc[0];
         $deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section) {
-            foreach ((array)$bc[1] as $c) {
+            foreach ((array) $bc[1] as $c) {
                 call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
             }
         };
@@ -152,7 +148,7 @@ class Runner
         }
         $deployment->runAfter = $ac[0];
         $deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section) {
-            foreach ((array)$ac[1] as $c) {
+            foreach ((array) $ac[1] as $c) {
                 call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
             }
         };
