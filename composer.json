@@ -11,11 +11,21 @@
     }
   ],
   "require": {
-    "php": ">=5.4",
+    "php": ">=5.5",
     "nette/di": "~2.3.0|~2.4.0",
-    "dg/ftp-deployment": "~2.1.0"
+    "dg/ftp-deployment": "~2.5.0"
+  },
+  "require-dev": {
+    "nette/tester": "~1.7.0",
+    "mockery/mockery": "~0.9.5",
+    "symfony/console": "~3.1.0"
+  },
+  "suggest": {
+    "symfony/console": "For CLI usage"
   },
   "autoload": {
-    "classmap": ["src/"]
+    "psr-4": {
+      "Minetro\\Deployer\\": "src"
+    }
   }
 }

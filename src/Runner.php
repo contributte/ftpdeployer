@@ -11,10 +11,12 @@ use Deployment\Deployer;
 use Deployment\FtpServer;
 use Deployment\Logger;
 use Deployment\Preprocessor;
+use Deployment\Server;
 use Deployment\SshServer;
 use Minetro\Deployer\Config\Config;
 use Minetro\Deployer\Config\Section;
 use Minetro\Deployer\Exceptions\DeployException;
+use Minetro\Deployer\Logging\StdOutLogger;
 
 class Runner
 {
@@ -28,7 +30,8 @@ class Runner
     public function run(Config $config)
     {
         // Create logger
-        $this->logger = new Logger($config->getLogFile());
+        $logFile = $config->getLogFile();
+        $this->logger = $logFile ? new Logger($logFile) : new StdOutLogger();
         $this->logger->useColors = $config->useColors();
 
         // Create temp dir
@@ -62,7 +65,7 @@ class Runner
             // Detect mode -> generate
             if ($config->getMode() === 'generate') {
                 $this->logger->log('Scanning files');
-                $localFiles = $deployment->collectFiles();
+                $localFiles = $deployment->collectPaths();
                 $this->logger->log("Saved " . $deployment->writeDeploymentFile($localFiles));
                 continue;
             }
@@ -70,7 +73,10 @@ class Runner
             // Show info
             if ($deployment->testMode) {
                 $this->logger->log('Test mode');
+            } else {
+                $this->logger->log('Live mode');
             }
+
             if (!$deployment->allowDelete) {
                 $this->logger->log('Deleting disabled');
             }
@@ -97,9 +103,7 @@ class Runner
         }
 
         // Create *Server
-        $server = parse_url($section->getRemote(), PHP_URL_SCHEME) === 'sftp'
-            ? new SshServer($section->getRemote())
-            : new FtpServer($section->getRemote(), $section->isPassiveMode());
+        $server = $this->createServer($section);
 
         // Create deployer
         $deployment = new Deployer($server, $section->getLocal(), $this->logger);
@@ -118,7 +122,7 @@ class Runner
 
         // Merge ignore masks
         $deployment->ignoreMasks = array_merge(
-            ['*.bak', '.svn', '.git*', 'Thumbs.db', '.DS_Store'],
+            ['*.bak', '.svn', '.git*', 'Thumbs.db', '.DS_Store', '.idea'],
             $section->getIgnoreMasks()
         );
 
@@ -155,4 +159,16 @@ class Runner
 
         return $deployment;
     }
+
+    /**
+     * @param Section $section
+     * @return Server
+     */
+    protected function createServer(Section $section)
+    {
+        return parse_url($section->getRemote(), PHP_URL_SCHEME) === 'sftp'
+            ? new SshServer($section->getRemote())
+            : new FtpServer($section->getRemote(), $section->isPassiveMode());
+    }
+
 }

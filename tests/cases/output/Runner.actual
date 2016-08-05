@@ -1,0 +1,6 @@
+array(
+	'/.htdeployment.running',
+	'/bar.log.deploytmp',
+	'/foo.txt.deploytmp',
+	'/.htdeployment.deploytmp',
+)
