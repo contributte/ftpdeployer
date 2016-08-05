@@ -4,8 +4,11 @@
 
 -----
 
+[![Build Status](https://img.shields.io/travis/minetro/deployer-extension.svg?style=flat-square)](https://travis-ci.org/minetro/deployer-extension)
+[![Code coverage](https://img.shields.io/coveralls/minetro/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/minetro/deployer-extension)
 [![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
 [![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
+[![HHVM Status](https://img.shields.io/hhvm/minetro/deployer-extension.svg?style=flat-square)](http://hhvm.h4cc.de/package/minetro/deployer-extension)
 
 ## Discussion / Help
 
@@ -13,7 +16,7 @@
 
 ## Install
 ```sh
-$ composer require minetro/deployer-extension:~1.1.0
+$ composer require minetro/deployer-extension
 ```
 
 ## Configuration
