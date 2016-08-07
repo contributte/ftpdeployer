@@ -23,10 +23,10 @@ sudo: false
 
 before_script:
     # Update Composer
-    - composer self-update
+    - travis_retry composer self-update
 
     # Install Nette Tester
-    - composer install --no-interaction --prefer-source
+    - travis_retry composer update --no-interaction --prefer-source $COMPOSER_FLAG
 
     # Coveralls
     - if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then cat ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini >> ./tests/php-unix.ini; fi
