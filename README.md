@@ -29,11 +29,11 @@ $ composer require minetro/deployer-extension
 
 ## Overview
 
-- [Usage - how to register](./docs/README.md#usage)
-- [Configuration - how to configure](./docs/README.md#configuration)
-- [Listeners](./docs/README.md#listeners)
-- [Deploy - how to deploy](./docs/README.md#deploy)
-- [Plugins](./docs/README.md#plugins)
+- [Usage - how to register](/.docs/README.md#usage)
+- [Configuration - how to configure](/.docs/README.md#configuration)
+- [Listeners](/.docs/README.md#listeners)
+- [Deploy - how to deploy](/.docs/README.md#deploy)
+- [Plugins](/.docs/README.md#plugins)
 
 ## Maintainers
 
