@@ -1,9 +1,9 @@
 <?php
 
-namespace Minetro\Deployer;
+namespace Contributte\Deployer;
 
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\ConfigFactory;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\ConfigFactory;
 
 class Manager
 {

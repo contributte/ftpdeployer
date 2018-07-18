@@ -24,7 +24,7 @@ $ composer require minetro/deployer-extension
 ### Register extension
 ```yaml
 extensions:
-    deployer: Minetro\Deployer\DI\DeployerExtension
+    deployer: Contributte\Deployer\DI\DeployerExtension
 ```
 
 ### Configure extension
@@ -156,7 +156,7 @@ $dm->manualDeploy($config);
 
 ```php
 # Inject Deploy Manager
-use Minetro\Deployer;
+use Contributte\Deployer;
 
 /** @var Deployer\Manager @inject */
 public $dm;

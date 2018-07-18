@@ -11,8 +11,8 @@
     }
   ],
   "require": {
-    "php": ">=5.5",
-    "nette/di": "~2.3.0|~2.4.0",
+    "php": ">=7.1",
+    "nette/di": "~2.4.13",
     "dg/ftp-deployment": "~2.5.0"
   },
   "require-dev": {
@@ -20,12 +20,9 @@
     "mockery/mockery": "~0.9.5",
     "symfony/console": "~3.1.0"
   },
-  "suggest": {
-    "symfony/console": "For CLI usage"
-  },
   "autoload": {
     "psr-4": {
-      "Minetro\\Deployer\\": "src"
+      "Contributte\\Deployer\\": "src"
     }
   }
 }

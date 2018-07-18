@@ -1,9 +1,9 @@
 <?php
 
-namespace Minetro\Deployer\Config;
+namespace Contributte\Deployer\Config;
 
-use Minetro\Deployer\Listeners\AfterListener;
-use Minetro\Deployer\Listeners\BeforeListener;
+use Contributte\Deployer\Listeners\AfterListener;
+use Contributte\Deployer\Listeners\BeforeListener;
 
 class Section
 {

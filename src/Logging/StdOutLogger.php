@@ -1,6 +1,6 @@
 <?php
 
-namespace Minetro\Deployer\Logging;
+namespace Contributte\Deployer\Logging;
 
 use Deployment\Logger;
 

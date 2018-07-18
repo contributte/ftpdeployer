@@ -1,6 +1,6 @@
 <?php
 
-namespace Minetro\Deployer\Utils;
+namespace Contributte\Deployer\Utils;
 
 class System
 {

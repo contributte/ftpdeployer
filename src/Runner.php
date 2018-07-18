@@ -5,7 +5,7 @@
  * @copyright (c) 2009 David Grudl (http://davidgrudl.com) All rights reserved.
  */
 
-namespace Minetro\Deployer;
+namespace Contributte\Deployer;
 
 use Deployment\Deployer;
 use Deployment\FtpServer;
@@ -13,10 +13,10 @@ use Deployment\Logger;
 use Deployment\Preprocessor;
 use Deployment\Server;
 use Deployment\SshServer;
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\Section;
-use Minetro\Deployer\Exceptions\DeployException;
-use Minetro\Deployer\Logging\StdOutLogger;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\Section;
+use Contributte\Deployer\Exceptions\DeployException;
+use Contributte\Deployer\Logging\StdOutLogger;
 
 class Runner
 {

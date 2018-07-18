@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @Test: Minetro/Deployer/Runner
+ * @Test: Contributte/Deployer/Runner
  */
 
 use Deployment\Server;
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\Section;
-use Minetro\Deployer\Runner;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\Section;
+use Contributte\Deployer\Runner;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';

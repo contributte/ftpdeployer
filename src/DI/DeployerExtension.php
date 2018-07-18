@@ -1,8 +1,8 @@
 <?php
 
-namespace Minetro\Deployer\DI;
+namespace Contributte\Deployer\DI;
 
-use Minetro\Deployer\Config\Config;
+use Contributte\Deployer\Config\Config;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 

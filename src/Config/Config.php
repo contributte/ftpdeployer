@@ -1,6 +1,6 @@
 <?php
 
-namespace Minetro\Deployer\Config;
+namespace Contributte\Deployer\Config;
 
 class Config
 {

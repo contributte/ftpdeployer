@@ -1,14 +1,14 @@
 <?php
 
-namespace Minetro\Deployer\Listeners\Impl;
+namespace Contributte\Deployer\Listeners\Impl;
 
 use Deployment\Deployer;
 use Deployment\Logger;
 use Deployment\Server;
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\Section;
-use Minetro\Deployer\Listeners\BeforeListener;
-use Minetro\Deployer\Utils\System;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\Section;
+use Contributte\Deployer\Listeners\BeforeListener;
+use Contributte\Deployer\Utils\System;
 
 class ComposerInstallListener implements BeforeListener
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Minetro\Deployer\Exceptions;
+namespace Contributte\Deployer\Exceptions;
 
 use RuntimeException;
 

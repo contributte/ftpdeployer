@@ -1,12 +1,12 @@
 <?php
 
-namespace Minetro\Deployer\Listeners;
+namespace Contributte\Deployer\Listeners;
 
 use Deployment\Deployer;
 use Deployment\Logger;
 use Deployment\Server;
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\Section;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\Section;
 
 interface AfterListener
 {
