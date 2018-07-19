@@ -19,7 +19,7 @@ final class StdOutLogger extends Logger
      * @param string $color
      * @param bool $shorten
      */
-    public function log($s, $color = NULL, $shorten = TRUE)
+    public function log(string $s, string $color = NULL, bool $shorten = TRUE): void
     {
         if ($shorten && preg_match('#^\n?.*#', $s, $m)) {
             $s = $m[0];
