@@ -23,9 +23,9 @@ $ composer require minetro/deployer-extension
 
 | State       | Version | Branch   | PHP      |                 |
 |-------------|---------|----------|----------|-----------------|
-| dev         | `^2.1`  | `master` | `>= 7.1` |                 |
-| stable      | `^2.0`  | `master` | `>= 7.1` |                 |
-| stable      | `^1.1`  | `master` | `>= 5.6` | (old namespace) |
+| dev         | `^3.1.0`  | `master` | `>= 7.1` |                 |
+| stable      | `^3.0.0`  | `master` | `>= 7.1` |                 |
+| stable      | `^2.0.0`  | `master` | `>= 5.5` | (old namespace) |
 
 ## Overview
 

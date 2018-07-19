@@ -181,7 +181,7 @@ $dm = $container->getByType('Minetro\Deployer\Manager');
 $dm->deploy();
 ```
 
-## PLUGINS
+## Plugins
 
 ## `MaintenanceListener`
 
