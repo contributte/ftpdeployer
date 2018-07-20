@@ -1,172 +1,140 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\Deployer\Config;
 
 class Config
 {
 
-    /** Modes */
-    const MODE_GENERATE = 'generate';
-    const MODE_TEST = 'test';
-    const MODE_RUN = 'deploy';
+	/** Modes */
+	public const MODE_GENERATE = 'generate';
+	public const MODE_TEST = 'test';
+	public const MODE_RUN = 'deploy';
 
-    /** @var string */
-    private $mode = self::MODE_RUN;
+	/** @var string */
+	private $mode = self::MODE_RUN;
 
-    /** @var string */
-    private $logFile;
+	/** @var string */
+	private $logFile;
 
-    /** @var string */
-    private $tempDir;
+	/** @var string */
+	private $tempDir;
 
-    /** @var bool */
-    private $colors;
+	/** @var bool */
+	private $colors;
 
-    /** @var Section */
-    private $sections = [];
+	/** @var Section */
+	private $sections = [];
 
-    /** @var array */
-    private $userdata = [];
+	/** @var array */
+	private $userdata = [];
 
-    /** @var array */
-    private $plugins = [];
+	/** @var array */
+	private $plugins = [];
 
-    /**
-     * @return string
-     */
-    public function getMode()
-    {
-        return $this->mode;
-    }
+	public function getMode(): ?string
+	{
+		return $this->mode;
+	}
 
-    /**
-     * @param string $mode
-     */
-    public function setMode($mode)
-    {
-        $this->mode = $mode;
-    }
+	public function setMode(string $mode): void
+	{
+		$this->mode = $mode;
+	}
 
-    /**
-     * @return string
-     */
-    public function getLogFile()
-    {
-        return $this->logFile;
-    }
+	public function getLogFile(): ?string
+	{
+		return $this->logFile;
+	}
 
-    /**
-     * @param string $logFile
-     */
-    public function setLogFile($logFile)
-    {
-        $this->logFile = $logFile;
-    }
+	public function setLogFile(string $logFile): void
+	{
+		$this->logFile = $logFile;
+	}
 
-    /**
-     * @return boolean
-     */
-    public function useColors()
-    {
-        return $this->colors;
-    }
+	public function useColors(): ?bool
+	{
+		return $this->colors;
+	}
 
-    /**
-     * @param boolean $colors
-     */
-    public function setColors($colors)
-    {
-        $this->colors = (bool)$colors;
-    }
+	public function setColors(bool $colors): void
+	{
+		$this->colors = (bool) $colors;
+	}
 
-    /**
-     * @return string
-     */
-    public function getTempDir()
-    {
-        return $this->tempDir;
-    }
+	public function getTempDir(): ?string
+	{
+		return $this->tempDir;
+	}
 
-    /**
-     * @param string $tempDir
-     */
-    public function setTempDir($tempDir)
-    {
-        $this->tempDir = $tempDir;
-    }
+	public function setTempDir(string $tempDir): void
+	{
+		$this->tempDir = $tempDir;
+	}
 
-    /**
-     * @return Section[]
-     */
-    public function getSections()
-    {
-        return $this->sections;
-    }
+	/**
+	 * @return Section[]
+	 */
+	public function getSections(): array
+	{
+		return $this->sections;
+	}
 
-    /**
-     * @param Section $sections
-     */
-    public function setSections($sections)
-    {
-        $this->sections = $sections;
-    }
+	public function setSections(Section $sections): void
+	{
+		$this->sections = $sections;
+	}
 
-    /**
-     * @param Section $section
-     */
-    public function addSection(Section $section)
-    {
-        $this->sections[] = $section;
-    }
+	public function addSection(Section $section): void
+	{
+		$this->sections[] = $section;
+	}
 
-    /**
-     * @return array
-     */
-    public function getUserdata()
-    {
-        return $this->userdata;
-    }
+	/**
+	 * @return array
+	 */
+	public function getUserdata(): array
+	{
+		return $this->userdata;
+	}
 
-    /**
-     * @param array $userdata
-     */
-    public function setUserdata($userdata)
-    {
-        $this->userdata = $userdata;
-    }
+	/**
+	 * @param array $userdata
+	 */
+	public function setUserdata(array $userdata): void
+	{
+		$this->userdata = $userdata;
+	}
 
-    /**
-     * @param string $key
-     * @param mixed $data
-     */
-    public function addUserdata($key, $data)
-    {
-        $this->userdata[$key] = $data;
-    }
+	/**
+	 * @param mixed $data
+	 */
+	public function addUserdata(string $key, $data): void
+	{
+		$this->userdata[$key] = $data;
+	}
 
-    /**
-     * @return array
-     */
-    public function getPlugins()
-    {
-        return $this->plugins;
-    }
+	/**
+	 * @return array
+	 */
+	public function getPlugins(): array
+	{
+		return $this->plugins;
+	}
 
-    /**
-     * @param array $plugins
-     */
-    public function setPlugins($plugins)
-    {
-        $this->plugins = $plugins;
-    }
+	/**
+	 * @param array $plugins
+	 */
+	public function setPlugins(array $plugins): void
+	{
+		$this->plugins = $plugins;
+	}
 
-    /**
-     * @param string $name
-     * @param array $data
-     */
-    public function addPlugin($name, array $data)
-    {
-        $this->plugins[$name] = $data;
-    }
+	/**
+	 * @param array $data
+	 */
+	public function addPlugin(string $name, array $data): void
+	{
+		$this->plugins[$name] = $data;
+	}
 
 }

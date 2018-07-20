@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Contributte\Deployer\Config;
 
@@ -8,291 +8,228 @@ use Contributte\Deployer\Listeners\BeforeListener;
 class Section
 {
 
-    /** @var string */
-    private $name;
+	/** @var string */
+	private $name;
 
-    /** @var string */
-    private $deployFile;
+	/** @var string */
+	private $deployFile;
 
-    /** @var bool */
-    private $testMode;
+	/** @var bool */
+	private $testMode;
 
-    /** @var string */
-    private $remote;
+	/** @var string */
+	private $remote;
 
-    /** @var string */
-    private $local;
+	/** @var string */
+	private $local;
 
-    /** @var array */
-    private $ignoreMasks = [];
+	/** @var array */
+	private $ignoreMasks = [];
 
-    /** @var bool */
-    private $allowDelete;
+	/** @var bool */
+	private $allowDelete;
 
-    /** @var BeforeListener[] */
-    private $beforeCallbacks = [];
+	/** @var BeforeListener[] */
+	private $beforeCallbacks = [];
 
-    /** @var AfterListener[] */
-    private $afterCallbacks = [];
+	/** @var AfterListener[] */
+	private $afterCallbacks = [];
 
-    /** @var array */
-    private $purges = [];
+	/** @var array */
+	private $purges = [];
 
-    /** @var bool */
-    private $preprocess;
+	/** @var bool */
+	private $preprocess;
 
-    /** @var array */
-    private $preprocessMasks = [];
+	/** @var array */
+	private $preprocessMasks = [];
 
-    /** @var bool */
-    private $passiveMode;
+	/** @var bool */
+	private $passiveMode;
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	public function getName(): ?string
+	{
+		return $this->name;
+	}
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+	public function setName(string $name): void
+	{
+		$this->name = $name;
+	}
 
-    /**
-     * @return string
-     */
-    public function getRemote()
-    {
-        return $this->remote;
-    }
+	public function getRemote(): ?string
+	{
+		return $this->remote;
+	}
 
-    /**
-     * @param string $remote
-     */
-    public function setRemote($remote)
-    {
-        $this->remote = $remote;
-    }
+	public function setRemote(string $remote): void
+	{
+		$this->remote = $remote;
+	}
 
-    /**
-     * @return string
-     */
-    public function getLocal()
-    {
-        return $this->local;
-    }
+	public function getLocal(): ?string
+	{
+		return $this->local;
+	}
 
-    /**
-     * @param string $local
-     */
-    public function setLocal($local)
-    {
-        $this->local = $local;
-    }
+	public function setLocal(string $local): void
+	{
+		$this->local = $local;
+	}
 
-    /**
-     * @return array
-     */
-    public function getIgnoreMasks()
-    {
-        return $this->ignoreMasks;
-    }
+	/**
+	 * @return array
+	 */
+	public function getIgnoreMasks(): array
+	{
+		return $this->ignoreMasks;
+	}
 
-    /**
-     * @param array $masks
-     */
-    public function setIgnoreMasks($masks)
-    {
-        $this->ignoreMasks = $masks;
-    }
+	/**
+	 * @param array $masks
+	 */
+	public function setIgnoreMasks(array $masks): void
+	{
+		$this->ignoreMasks = $masks;
+	}
 
-    /**
-     * @param $mask
-     */
-    public function addIgnoreMask($mask)
-    {
-        $this->ignoreMasks[] = $mask;
-    }
+	public function addIgnoreMask($mask): void
+	{
+		$this->ignoreMasks[] = $mask;
+	}
 
-    /**
-     * @return boolean
-     */
-    public function isAllowDelete()
-    {
-        return $this->allowDelete;
-    }
+	public function isAllowDelete(): ?bool
+	{
+		return $this->allowDelete;
+	}
 
-    /**
-     * @param boolean $allow
-     */
-    public function setAllowDelete($allow)
-    {
-        $this->allowDelete = $allow;
-    }
+	public function setAllowDelete(bool $allow): void
+	{
+		$this->allowDelete = $allow;
+	}
 
-    /**
-     * @return BeforeListener[]|array
-     */
-    public function getBeforeCallbacks()
-    {
-        return $this->beforeCallbacks;
-    }
+	/**
+	 * @return BeforeListener[]|array
+	 */
+	public function getBeforeCallbacks(): array
+	{
+		return $this->beforeCallbacks;
+	}
 
-    /**
-     * @param BeforeListener[] $callbacks
-     */
-    public function setBeforeCallbacks($callbacks)
-    {
-        $this->beforeCallbacks = $callbacks;
-    }
+	/**
+	 * @param BeforeListener[] $callbacks
+	 */
+	public function setBeforeCallbacks($callbacks): void
+	{
+		$this->beforeCallbacks = $callbacks;
+	}
 
-    /**
-     * @param BeforeListener
-     */
-    public function addBeforeCallbacks($callback)
-    {
-        $this->beforeCallbacks[] = $callback;
-    }
+	public function addBeforeCallbacks(BeforeListener $callback): void
+	{
+		$this->beforeCallbacks[] = $callback;
+	}
 
-    /**
-     * @return AfterListener[]|array
-     */
-    public function getAfterCallbacks()
-    {
-        return $this->afterCallbacks;
-    }
+	/**
+	 * @return AfterListener[]|array
+	 */
+	public function getAfterCallbacks(): array
+	{
+		return $this->afterCallbacks;
+	}
 
-    /**
-     * @param AfterListener[] $callbacks
-     */
-    public function setAfterCallbacks($callbacks)
-    {
-        $this->afterCallbacks = $callbacks;
-    }
+	/**
+	 * @param AfterListener[] $callbacks
+	 */
+	public function setAfterCallbacks($callbacks): void
+	{
+		$this->afterCallbacks = $callbacks;
+	}
 
-    /**
-     * @param AfterListener
-     */
-    public function addAfterCallbacks($callback)
-    {
-        $this->afterCallbacks[] = $callback;
-    }
+	public function addAfterCallbacks(AfterListener $callback): void
+	{
+		$this->afterCallbacks[] = $callback;
+	}
 
-    /**
-     * @return array
-     */
-    public function getPurges()
-    {
-        return $this->purges;
-    }
+	/**
+	 * @return array
+	 */
+	public function getPurges(): array
+	{
+		return $this->purges;
+	}
 
-    /**
-     * @param array $purges
-     */
-    public function setPurges($purges)
-    {
-        $this->purges = $purges;
-    }
+	/**
+	 * @param array $purges
+	 */
+	public function setPurges(array $purges): void
+	{
+		$this->purges = $purges;
+	}
 
-    /**
-     * @param $purge
-     */
-    public function addPurge($purge)
-    {
-        $this->purges[] = $purge;
-    }
+	public function addPurge($purge): void
+	{
+		$this->purges[] = $purge;
+	}
 
-    /**
-     * @return boolean
-     */
-    public function isPreprocess()
-    {
-        return $this->preprocess;
-    }
+	public function isPreprocess(): ?bool
+	{
+		return $this->preprocess;
+	}
 
-    /**
-     * @param boolean $preprocess
-     */
-    public function setPreprocess($preprocess)
-    {
-        $this->preprocess = (bool)$preprocess;
-    }
+	public function setPreprocess(bool $preprocess): void
+	{
+		$this->preprocess = (bool) $preprocess;
+	}
 
-    /**
-     * @return array
-     */
-    public function getPreprocessMasks()
-    {
-        return $this->preprocessMasks;
-    }
+	/**
+	 * @return array
+	 */
+	public function getPreprocessMasks(): array
+	{
+		return $this->preprocessMasks;
+	}
 
-    /**
-     * @param array $masks
-     */
-    public function setPreprocessMasks($masks)
-    {
-        $this->preprocessMasks = $masks;
-    }
+	/**
+	 * @param array $masks
+	 */
+	public function setPreprocessMasks(array $masks): void
+	{
+		$this->preprocessMasks = $masks;
+	}
 
-    /**
-     * @param $mask
-     */
-    public function addPreprocessMask($mask)
-    {
-        $this->preprocessMasks[] = $mask;
-    }
+	public function addPreprocessMask($mask): void
+	{
+		$this->preprocessMasks[] = $mask;
+	}
 
-    /**
-     * @return boolean
-     */
-    public function isPassiveMode()
-    {
-        return $this->passiveMode;
-    }
+	public function isPassiveMode(): bool
+	{
+		return $this->passiveMode;
+	}
 
-    /**
-     * @param boolean $mode
-     */
-    public function setPassiveMode($mode)
-    {
-        $this->passiveMode = (bool)$mode;
-    }
+	public function setPassiveMode(bool $mode): void
+	{
+		$this->passiveMode = (bool) $mode;
+	}
 
-    /**
-     * @return string
-     */
-    public function getDeployFile()
-    {
-        return $this->deployFile;
-    }
+	public function getDeployFile(): ?string
+	{
+		return $this->deployFile;
+	}
 
-    /**
-     * @param string $file
-     */
-    public function setDeployFile($file)
-    {
-        $this->deployFile = $file;
-    }
+	public function setDeployFile(string $file): void
+	{
+		$this->deployFile = $file;
+	}
 
-    /**
-     * @return boolean
-     */
-    public function isTestMode()
-    {
-        return $this->testMode;
-    }
+	public function isTestMode(): ?bool
+	{
+		return $this->testMode;
+	}
 
-    /**
-     * @param boolean $testMode
-     */
-    public function setTestMode($testMode)
-    {
-        $this->testMode = (bool)$testMode;
-    }
+	public function setTestMode(bool $testMode): void
+	{
+		$this->testMode = (bool) $testMode;
+	}
 
 }
