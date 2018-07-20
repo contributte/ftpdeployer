@@ -4,7 +4,6 @@ namespace Contributte\Deployer\Config;
 
 class Config
 {
-
 	/** Modes */
 	public const MODE_GENERATE = 'generate';
 	public const MODE_TEST = 'test';
@@ -25,10 +24,10 @@ class Config
 	/** @var Section */
 	private $sections = [];
 
-	/** @var array */
+	/** @var mixed[] */
 	private $userdata = [];
 
-	/** @var array */
+	/** @var mixed[] */
 	private $plugins = [];
 
 	public function getMode(): ?string
@@ -90,7 +89,7 @@ class Config
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
 	public function getUserdata(): array
 	{
@@ -98,7 +97,7 @@ class Config
 	}
 
 	/**
-	 * @param array $userdata
+	 * @param mixed[] $userdata
 	 */
 	public function setUserdata(array $userdata): void
 	{
@@ -106,6 +105,7 @@ class Config
 	}
 
 	/**
+	 * @param string $key
 	 * @param mixed $data
 	 */
 	public function addUserdata(string $key, $data): void
@@ -114,7 +114,7 @@ class Config
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
 	public function getPlugins(): array
 	{
@@ -122,7 +122,7 @@ class Config
 	}
 
 	/**
-	 * @param array $plugins
+	 * @param mixed[] $plugins
 	 */
 	public function setPlugins(array $plugins): void
 	{
@@ -130,7 +130,8 @@ class Config
 	}
 
 	/**
-	 * @param array $data
+	 * @param string $name
+	 * @param mixed[] $data
 	 */
 	public function addPlugin(string $name, array $data): void
 	{
