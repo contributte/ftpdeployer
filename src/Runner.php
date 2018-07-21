@@ -104,10 +104,10 @@ class Runner
 			$deployment->preprocessMasks = $masks === [] ? ['*.js', '*.css'] : $masks;
 			$preprocessor = new Preprocessor($this->logger);
 			$deployment->addFilter('js', [$preprocessor, 'expandApacheImports']);
-			$deployment->addFilter('js', [$preprocessor, 'compress'], true);
+			$deployment->addFilter('js', [$preprocessor, 'compressJs'], true);
 			$deployment->addFilter('css', [$preprocessor, 'expandApacheImports']);
 			$deployment->addFilter('css', [$preprocessor, 'expandCssImports']);
-			$deployment->addFilter('css', [$preprocessor, 'compress'], true);
+			$deployment->addFilter('css', [$preprocessor, 'compressCss'], true);
 		}
 
 		// Merge ignore masks
@@ -124,26 +124,26 @@ class Runner
 		$deployment->testMode = (bool) $section->isTestMode();
 
 		// Before callbacks
-		$bc = [null, null];
+		$bc = [[], []];
 		foreach ($section->getBeforeCallbacks() as $cb) {
 			$bc[is_callable($cb)][] = $cb;
 		}
 		$deployment->runBefore = $bc[0];
 		$deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section): void {
-			foreach ((array) $bc[1] as $c) {
-				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
+			foreach ($bc[1] as $c) {
+				call_user_func_array([$c, 'onBefore'], [$config, $section, $server, $logger, $deployer]);
 			}
 		};
 
 		// After callbacks
-		$ac = [null, null];
+		$ac = [[], []];
 		foreach ($section->getAfterCallbacks() as $cb) {
 			$ac[is_callable($cb)][] = $cb;
 		}
 		$deployment->runAfter = $ac[0];
 		$deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section): void {
-			foreach ((array) $ac[1] as $c) {
-				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
+			foreach ($ac[1] as $c) {
+				call_user_func_array([$c, 'onAfter'], [$config, $section, $server, $logger, $deployer]);
 			}
 		};
 
