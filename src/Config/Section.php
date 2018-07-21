@@ -23,7 +23,7 @@ class Section
 	/** @var string */
 	private $local;
 
-	/** @var array */
+	/** @var mixed[] */
 	private $ignoreMasks = [];
 
 	/** @var bool */
@@ -35,13 +35,13 @@ class Section
 	/** @var AfterListener[] */
 	private $afterCallbacks = [];
 
-	/** @var array */
+	/** @var mixed[] */
 	private $purges = [];
 
 	/** @var bool */
 	private $preprocess;
 
-	/** @var array */
+	/** @var mixed[] */
 	private $preprocessMasks = [];
 
 	/** @var bool */
@@ -78,7 +78,7 @@ class Section
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
 	public function getIgnoreMasks(): array
 	{
@@ -86,13 +86,16 @@ class Section
 	}
 
 	/**
-	 * @param array $masks
+	 * @param mixed[] $masks
 	 */
 	public function setIgnoreMasks(array $masks): void
 	{
 		$this->ignoreMasks = $masks;
 	}
 
+	/**
+	 * @param mixed $mask
+	 */
 	public function addIgnoreMask($mask): void
 	{
 		$this->ignoreMasks[] = $mask;
@@ -119,7 +122,7 @@ class Section
 	/**
 	 * @param BeforeListener[] $callbacks
 	 */
-	public function setBeforeCallbacks($callbacks): void
+	public function setBeforeCallbacks(array $callbacks): void
 	{
 		$this->beforeCallbacks = $callbacks;
 	}
@@ -140,7 +143,7 @@ class Section
 	/**
 	 * @param AfterListener[] $callbacks
 	 */
-	public function setAfterCallbacks($callbacks): void
+	public function setAfterCallbacks(array $callbacks): void
 	{
 		$this->afterCallbacks = $callbacks;
 	}
@@ -151,7 +154,7 @@ class Section
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
 	public function getPurges(): array
 	{
@@ -159,13 +162,16 @@ class Section
 	}
 
 	/**
-	 * @param array $purges
+	 * @param mixed[] $purges
 	 */
 	public function setPurges(array $purges): void
 	{
 		$this->purges = $purges;
 	}
 
+	/**
+	 * @param mixed $purge
+	 */
 	public function addPurge($purge): void
 	{
 		$this->purges[] = $purge;
@@ -182,7 +188,7 @@ class Section
 	}
 
 	/**
-	 * @return array
+	 * @return mixed[]
 	 */
 	public function getPreprocessMasks(): array
 	{
@@ -190,13 +196,16 @@ class Section
 	}
 
 	/**
-	 * @param array $masks
+	 * @param mixed[] $masks
 	 */
 	public function setPreprocessMasks(array $masks): void
 	{
 		$this->preprocessMasks = $masks;
 	}
 
+	/**
+	 * @param mixed $mask
+	 */
 	public function addPreprocessMask($mask): void
 	{
 		$this->preprocessMasks[] = $mask;

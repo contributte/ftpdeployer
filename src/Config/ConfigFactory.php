@@ -5,11 +5,11 @@ namespace Contributte\Deployer\Config;
 class ConfigFactory
 {
 
-	/** @var array */
+	/** @var mixed[] */
 	private $data;
 
 	/**
-	 * @param array $data
+	 * @param mixed[] $data
 	 */
 	public function __construct(array $data)
 	{
