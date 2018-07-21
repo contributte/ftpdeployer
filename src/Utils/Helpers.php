@@ -8,14 +8,14 @@ class Helpers
 {
 
 	/**
-	 * @param string $command
-	 * @param mixed $return_val
+	 * @param mixed[] $expected
+	 * @param mixed $config
 	 */
-	public static function validateConfig($expected, $config, $name = 'config'): void
+	public static function validateConfig(array $expected, $config, string $name = 'config'): void
 	{
 		if ($extra = array_diff_key((array) $config, $expected)) {
-			$extra = implode(", $name.", array_keys($extra));
-			throw new InvalidStateException("Unknown configuration option $name.$extra.");
+			$extra = implode(sprintf(', %s.', $name), array_keys($extra));
+			throw new InvalidStateException(sprintf('Unknown configuration option %s.%s.', $name, $extra));
 		}
 	}
 

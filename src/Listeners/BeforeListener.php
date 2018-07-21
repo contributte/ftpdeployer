@@ -11,6 +11,6 @@ use Deployment\Server;
 interface BeforeListener
 {
 
-	function onBefore(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void;
+	public function onBefore(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void;
 
 }

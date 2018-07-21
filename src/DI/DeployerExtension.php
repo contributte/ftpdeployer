@@ -12,7 +12,7 @@ use Nette\DI\Statement;
 final class DeployerExtension extends CompilerExtension
 {
 
-	/** @var array */
+	/** @var mixed[] */
 	private $defaults = [
 		'config' => [
 			'mode' => Config::MODE_TEST,
@@ -25,7 +25,7 @@ final class DeployerExtension extends CompilerExtension
 		'plugins' => [],
 	];
 
-	/** @var array */
+	/** @var mixed[] */
 	private $sectionDefaults = [
 		'testMode' => true,
 		'deployFile' => null,

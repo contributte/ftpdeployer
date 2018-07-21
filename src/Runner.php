@@ -28,7 +28,7 @@ class Runner
 
 		// Create temp dir
 		if (!is_dir($tempDir = $config->getTempDir())) {
-			$this->logger->log("Creating temporary directory $tempDir");
+			$this->logger->log(sprintf('Creating temporary directory %s', $tempDir));
 			@mkdir($tempDir, 0777, true);
 		}
 
@@ -48,7 +48,7 @@ class Runner
 		// Process all sections
 		foreach ($sections as $section) {
 			// Show info
-			$this->logger->log("\nDeploying section [{$section->getName()}]");
+			$this->logger->log(sprintf('\nDeploying section [%s]', $section->getName()));
 
 			// Create deployer
 			$deployment = $this->createDeployer($config, $section);
@@ -79,7 +79,7 @@ class Runner
 
 		// Show elapsed time
 		$time = time() - $time;
-		$this->logger->log("\nFinished at " . date('[Y/m/d H:i]') . " (in $time seconds)", 'lime');
+		$this->logger->log(sprintf('\nFinished at %s (in %s seconds)', date('[Y/m/d H:i]'), $time), 'lime');
 	}
 
 	/**

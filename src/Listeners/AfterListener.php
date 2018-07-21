@@ -11,6 +11,6 @@ use Deployment\Server;
 interface AfterListener
 {
 
-	function onAfter(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void;
+	public function onAfter(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void;
 
 }

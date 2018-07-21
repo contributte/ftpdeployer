@@ -21,7 +21,7 @@ final class StdOutLogger extends Logger
 		if ($this->useColors && $color) {
 			$c = explode('/', $color);
 			$s = "\033["
-				. (empty($c[1]) ? '' : ';4') . "m$s\033[0m";
+				. (empty($c[1]) ? '' : ';4') . sprintf('m%s\033[0m', $s);
 		}
 		echo $s;
 	}

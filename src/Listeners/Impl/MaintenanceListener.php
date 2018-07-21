@@ -15,22 +15,29 @@ use Nette\InvalidStateException;
 class MaintenanceListener implements BeforeListener, AfterListener
 {
 
-	/** Plugin name */
+	/**
+	 * Plugin name
+	 */
 	public const PLUGIN = 'maintenance';
 
-	/** Maintenance modes */
+	/**
+	 * Maintenance modes
+	 */
 	public const MODE_REWRITE = 'rewrite';
 	public const MODE_RENAME = 'rename';
 
-	/** Maintenance file extensions */
+	/**
+	 * Maintenance file extensions
+	 */
 	public const MAINTENANCE_EXTENSION = 'maintenance';
 
+	/** @var mixed[] $defaults */
 	private $defaults = [
 		self::MODE_REWRITE => null,
 		self::MODE_RENAME => null,
 	];
 
-	/** @var array */
+	/** @var mixed[] */
 	private $batch = [
 		self::MODE_REWRITE => [],
 		self::MODE_RENAME => [],
@@ -42,7 +49,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	/** @var Logger */
 	private $logger;
 
-	/** @var array */
+	/** @var mixed[] */
 	private $plugin;
 
 	/** @var string */
@@ -61,7 +68,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 			$this->doRewrite($this->plugin[self::MODE_REWRITE]);
 
 			$time = time() - $time;
-			$this->log("rewriting finished (in $time seconds)", 'lime');
+			$this->log(sprintf('rewriting finished (in %s seconds)', $time), 'lime');
 		}
 
 		if (isset($this->plugin[self::MODE_RENAME]) && is_array($this->plugin[self::MODE_RENAME])) {
@@ -71,7 +78,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 			$this->doRename($this->plugin[self::MODE_RENAME]);
 
 			$time = time() - $time;
-			$this->log("renaming finished (in $time seconds)", 'lime');
+			$this->log(sprintf('renaming finished (in %s seconds)', $time), 'lime');
 		}
 	}
 
@@ -88,7 +95,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 			$this->doRewrite($this->batch[self::MODE_REWRITE], true);
 
 			$time = time() - $time;
-			$this->log("revert - rewriting finished (in $time seconds)", 'lime');
+			$this->log(sprintf('revert - rewriting finished (in %s seconds)', $time), 'lime');
 			$this->batch[self::MODE_REWRITE] = [];
 		}
 
@@ -99,7 +106,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 			$this->doRename($this->batch[self::MODE_RENAME], true);
 
 			$time = time() - $time;
-			$this->log("revert - renaming finished (in $time seconds)", 'lime');
+			$this->log(sprintf('revert - renaming finished (in %s seconds)', $time), 'lime');
 			$this->batch[self::MODE_RENAME] = [];
 		}
 	}
@@ -107,7 +114,6 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	/**
 	 * HELPERS *****************************************************************
 	 */
-
 	private function load(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): bool
 	{
 		$this->server = $server;
@@ -119,7 +125,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 
 		// Has plugin filled config?
 		if (!$this->plugin) {
-			$logger->log("{$this->pluginName}: please fill config", 'red');
+			$logger->log(sprintf('%s: please fill config', $this->pluginName), 'red');
 
 			return false;
 		}
@@ -138,7 +144,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 
 	private function log(string $message, ?string $color = null): void
 	{
-		$this->logger->log("{$this->pluginName}: $message", $color);
+		$this->logger->log(sprintf('%s: %s', $this->pluginName, $message), $color);
 	}
 
 	/**
@@ -146,7 +152,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	 */
 
 	/**
-	 * @param array $list
+	 * @param mixed[] $list
 	 */
 	protected function doRewrite(array $list, bool $reverse = false): void
 	{
@@ -182,7 +188,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	}
 
 	/**
-	 * @param array $list
+	 * @param mixed[] $list
 	 */
 	protected function doRename(array $list, bool $reverse = false): void
 	{
