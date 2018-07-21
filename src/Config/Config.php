@@ -4,7 +4,10 @@ namespace Contributte\Deployer\Config;
 
 class Config
 {
-	/** Modes */
+
+	/**
+	 * Modes
+	 */
 	public const MODE_GENERATE = 'generate';
 	public const MODE_TEST = 'test';
 	public const MODE_RUN = 'deploy';
@@ -105,7 +108,6 @@ class Config
 	}
 
 	/**
-	 * @param string $key
 	 * @param mixed $data
 	 */
 	public function addUserdata(string $key, $data): void
@@ -130,7 +132,6 @@ class Config
 	}
 
 	/**
-	 * @param string $name
 	 * @param mixed[] $data
 	 */
 	public function addPlugin(string $name, array $data): void

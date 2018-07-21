@@ -36,7 +36,7 @@ test(function (): void {
 	$server->shouldReceive('readFile')
 		->once()
 		->andReturnUsing(function ($remoteFile, $localFile): void {
-			file_put_contents($localFile, gzdeflate(sprintf('%s',time()), 9));
+			file_put_contents($localFile, gzdeflate(sprintf('%s', time()), 9));
 		});
 
 	$runner = Mockery::mock(Runner::class);
