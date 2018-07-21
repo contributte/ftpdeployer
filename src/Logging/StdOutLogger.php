@@ -12,16 +12,16 @@ final class StdOutLogger extends Logger
 	}
 
 
-	public function log(string $s, ?string $color = null, bool $shorten = true): void
+	public function log(string $s, ?string $color = '', bool $shorten = true): void
 	{
-		if ($shorten && preg_match('#^\n?.*#', $s, $m)) {
+		if ($shorten && (bool) preg_match('#^\n?.*#', $s, $m)) {
 			$s = $m[0];
 		}
 		$s .= "        \n";
-		if ($this->useColors && $color) {
-			$c = explode('/', $color);
+		if ($this->useColors && (bool) $color) {
+			$c = explode('/', (string) $color);
 			$s = "\033["
-				. (empty($c[1]) ? '' : ';4') . sprintf('m%s\033[0m', $s);
+				. ($c[1] === '' ? $c[1] : ';4') . sprintf('m%s\033[0m', $s);
 		}
 		echo $s;
 	}

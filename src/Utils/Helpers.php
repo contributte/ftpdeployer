@@ -13,7 +13,9 @@ class Helpers
 	 */
 	public static function validateConfig(array $expected, $config, string $name = 'config'): void
 	{
-		if ($extra = array_diff_key((array) $config, $expected)) {
+		$extra = array_diff_key((array) $config, $expected);
+
+		if ($extra !== []) {
 			$extra = implode(sprintf(', %s.', $name), array_keys($extra));
 			throw new InvalidStateException(sprintf('Unknown configuration option %s.%s.', $name, $extra));
 		}

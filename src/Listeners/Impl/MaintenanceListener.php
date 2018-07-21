@@ -124,7 +124,7 @@ class MaintenanceListener implements BeforeListener, AfterListener
 		$this->pluginName = ucfirst(self::PLUGIN);
 
 		// Has plugin filled config?
-		if (!$this->plugin) {
+		if ($this->plugin === []) {
 			$logger->log(sprintf('%s: please fill config', $this->pluginName), 'red');
 
 			return false;

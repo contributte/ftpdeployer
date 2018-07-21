@@ -23,11 +23,11 @@ class Runner
 	{
 		// Create logger
 		$logFile = $config->getLogFile();
-		$this->logger = $logFile ? new Logger($logFile) : new StdOutLogger();
-		$this->logger->useColors = $config->useColors();
+		$this->logger = $logFile !== null ? new Logger($logFile) : new StdOutLogger();
+		$this->logger->useColors = (bool) $config->useColors();
 
 		// Create temp dir
-		if (!is_dir($tempDir = $config->getTempDir())) {
+		if (!is_dir($tempDir = (string) $config->getTempDir())) {
 			$this->logger->log(sprintf('Creating temporary directory %s', $tempDir));
 			@mkdir($tempDir, 0777, true);
 		}
@@ -88,7 +88,7 @@ class Runner
 	public function createDeployer(Config $config, Section $section): Deployer
 	{
 		// Validate section remote
-		if (!parse_url($section->getRemote())) {
+		if (!(bool) parse_url((string) $section->getRemote())) {
 			throw new DeployException("Missing or invalid 'remote' URL in config.");
 		}
 
@@ -96,12 +96,12 @@ class Runner
 		$server = $this->createServer($section);
 
 		// Create deployer
-		$deployment = new Deployer($server, $section->getLocal(), $this->logger);
+		$deployment = new Deployer($server, (string) $section->getLocal(), $this->logger);
 
 		// Set-up preprocessing
-		if ($section->isPreprocess()) {
+		if ($section->isPreprocess() === true) {
 			$masks = $section->getPreprocessMasks();
-			$deployment->preprocessMasks = empty($masks) ? ['*.js', '*.css'] : $masks;
+			$deployment->preprocessMasks = $masks === [] ? ['*.js', '*.css'] : $masks;
 			$preprocessor = new Preprocessor($this->logger);
 			$deployment->addFilter('js', [$preprocessor, 'expandApacheImports']);
 			$deployment->addFilter('js', [$preprocessor, 'compress'], true);
@@ -117,11 +117,11 @@ class Runner
 		);
 
 		// Basic settings
-		$deployFile = $section->getDeployFile();
-		$deployment->deploymentFile = empty($deployFile) ? $deployment->deploymentFile : $deployFile;
-		$deployment->allowDelete = $section->isAllowDelete();
+		$deployFile = (string) $section->getDeployFile();
+		$deployment->deploymentFile = $deployFile === '' ? $deployment->deploymentFile : $deployFile;
+		$deployment->allowDelete = (bool) $section->isAllowDelete();
 		$deployment->toPurge = $section->getPurges();
-		$deployment->testMode = $section->isTestMode();
+		$deployment->testMode = (bool) $section->isTestMode();
 
 		// Before callbacks
 		$bc = [null, null];
@@ -152,9 +152,9 @@ class Runner
 
 	protected function createServer(Section $section): Server
 	{
-		return parse_url($section->getRemote(), PHP_URL_SCHEME) === 'sftp'
-			? new SshServer($section->getRemote())
-			: new FtpServer($section->getRemote(), $section->isPassiveMode());
+		return parse_url((string) $section->getRemote(), PHP_URL_SCHEME) === 'sftp'
+			? new SshServer((string) $section->getRemote())
+			: new FtpServer((string) $section->getRemote(), $section->isPassiveMode());
 	}
 
 }

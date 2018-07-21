@@ -184,7 +184,7 @@ class Section
 
 	public function setPreprocess(bool $preprocess): void
 	{
-		$this->preprocess = (bool) $preprocess;
+		$this->preprocess = $preprocess;
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Section
 
 	public function setPassiveMode(bool $mode): void
 	{
-		$this->passiveMode = (bool) $mode;
+		$this->passiveMode = $mode;
 	}
 
 	public function getDeployFile(): ?string
@@ -238,7 +238,7 @@ class Section
 
 	public function setTestMode(bool $testMode): void
 	{
-		$this->testMode = (bool) $testMode;
+		$this->testMode = $testMode;
 	}
 
 }

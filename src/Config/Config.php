@@ -24,7 +24,7 @@ class Config
 	/** @var bool */
 	private $colors;
 
-	/** @var Section */
+	/** @var Section[] */
 	private $sections = [];
 
 	/** @var mixed[] */
@@ -60,7 +60,7 @@ class Config
 
 	public function setColors(bool $colors): void
 	{
-		$this->colors = (bool) $colors;
+		$this->colors = $colors;
 	}
 
 	public function getTempDir(): ?string
@@ -81,7 +81,10 @@ class Config
 		return $this->sections;
 	}
 
-	public function setSections(Section $sections): void
+	/**
+	 * @param Section[] $sections
+	 */
+	public function setSections(array $sections): void
 	{
 		$this->sections = $sections;
 	}
