@@ -4,11 +4,13 @@
 
 -----
 
-[![Build Status](https://img.shields.io/travis/minetro/deployer-extension.svg?style=flat-square)](https://travis-ci.org/minetro/deployer-extension)
-[![Code coverage](https://img.shields.io/coveralls/minetro/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/minetro/deployer-extension)
-[![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
-[![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
-[![HHVM Status](https://img.shields.io/hhvm/minetro/deployer-extension.svg?style=flat-square)](http://hhvm.h4cc.de/package/minetro/deployer-extension)
+[![Build Status](https://img.shields.io/travis/contributte/console.svg?style=flat-square)](https://travis-ci.org/contributte/deployer-extension)
+[![Code coverage](https://img.shields.io/coveralls/contributte/console.svg?style=flat-square)](https://coveralls.io/r/contributte/deployer-extension)
+[![Licence](https://img.shields.io/packagist/l/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+
+[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Downloads total](https://img.shields.io/packagist/dt/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Latest stable](https://img.shields.io/packagist/v/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
 
 ## Discussion / Help
 
@@ -38,17 +40,24 @@ $ composer require minetro/deployer-extension
 ## Maintainers
 
 <table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/mabar">
-            <img width="150" height="150" src="https://avatars0.githubusercontent.com/u/20974277?s=400&v=4">
-        </a>
-        </br>
-        <a href="https://github.com/mabar">Marek Bartoš</a>
-      </td>
-    </tr>
-  <tbody>
+    <tbody>
+        <tr>
+            <td align="center">
+                <a href="https://github.com/f3l1x">
+                    <img width="150" height="150" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=150">
+                </a>
+                </br>
+                <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
+            </td> 
+            <td align="center">
+                <a href="https://github.com/mabar">
+                    <img width="150" height="150" src="https://avatars0.githubusercontent.com/u/20974277?s=400&v=4">
+                </a>
+                </br>
+                <a href="https://github.com/mabar">Marek Bartoš</a>
+            </td>
+        </tr>
+    <tbody>
 </table>
 
 -----
