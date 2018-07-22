@@ -7,13 +7,12 @@ use Deployment\Logger;
 final class StdOutLogger extends Logger
 {
 
-    public function __construct()
+	public function __construct()
 	{
-	    /**
-         * parent constructor not called because of missing Logger interface
-         */
+		/**
+		 * parent constructor not called because of missing Logger interface
+		 */
 	}
-
 
 	public function log(string $s, ?string $color = '', bool $shorten = true): void
 	{
