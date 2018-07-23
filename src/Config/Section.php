@@ -101,7 +101,7 @@ class Section
 		$this->ignoreMasks[] = $mask;
 	}
 
-	public function isAllowDelete(): ?bool
+	public function isAllowDelete(): bool
 	{
 		return $this->allowDelete;
 	}
@@ -177,7 +177,7 @@ class Section
 		$this->purges[] = $purge;
 	}
 
-	public function isPreprocess(): ?bool
+	public function isPreprocess(): bool
 	{
 		return $this->preprocess;
 	}
@@ -231,7 +231,7 @@ class Section
 		$this->deployFile = $file;
 	}
 
-	public function isTestMode(): ?bool
+	public function isTestMode(): bool
 	{
 		return $this->testMode;
 	}

@@ -24,7 +24,7 @@ class Runner
 		// Create logger
 		$logFile = $config->getLogFile();
 		$this->logger = $logFile !== null ? new Logger($logFile) : new StdOutLogger();
-		$this->logger->useColors = (bool) $config->useColors();
+		$this->logger->useColors = $config->useColors();
 
 		// Create temp dir
 		if (!is_dir($tempDir = (string) $config->getTempDir())) {
@@ -119,9 +119,9 @@ class Runner
 		// Basic settings
 		$deployFile = (string) $section->getDeployFile();
 		$deployment->deploymentFile = $deployFile === '' ? $deployment->deploymentFile : $deployFile;
-		$deployment->allowDelete = (bool) $section->isAllowDelete();
+		$deployment->allowDelete = $section->isAllowDelete();
 		$deployment->toPurge = $section->getPurges();
-		$deployment->testMode = (bool) $section->isTestMode();
+		$deployment->testMode = $section->isTestMode();
 
 		// Before callbacks
 		$bc = [[], []];

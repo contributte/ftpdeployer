@@ -53,7 +53,7 @@ class Config
 		$this->logFile = $logFile;
 	}
 
-	public function useColors(): ?bool
+	public function useColors(): bool
 	{
 		return $this->colors;
 	}
