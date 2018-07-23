@@ -8,26 +8,26 @@ use Contributte\Deployer\Listeners\BeforeListener;
 class Section
 {
 
-	/** @var string */
+	/** @var string|null */
 	private $name;
 
-	/** @var string */
+	/** @var string|null */
 	private $deployFile;
 
 	/** @var bool */
-	private $testMode;
+	private $testMode = false;
 
-	/** @var string */
+	/** @var string|null */
 	private $remote;
 
-	/** @var string */
+	/** @var string|null */
 	private $local;
 
-	/** @var mixed[] */
+	/** @var string[] */
 	private $ignoreMasks = [];
 
 	/** @var bool */
-	private $allowDelete;
+	private $allowDelete = false;
 
 	/** @var BeforeListener[] */
 	private $beforeCallbacks = [];
@@ -35,17 +35,17 @@ class Section
 	/** @var AfterListener[] */
 	private $afterCallbacks = [];
 
-	/** @var mixed[] */
+	/** @var string[] */
 	private $purges = [];
 
 	/** @var bool */
-	private $preprocess;
+	private $preprocess = false;
 
 	/** @var mixed[] */
 	private $preprocessMasks = [];
 
 	/** @var bool */
-	private $passiveMode;
+	private $passiveMode = true;
 
 	public function getName(): ?string
 	{
@@ -112,7 +112,7 @@ class Section
 	}
 
 	/**
-	 * @return BeforeListener[]|array
+	 * @return BeforeListener[]
 	 */
 	public function getBeforeCallbacks(): array
 	{

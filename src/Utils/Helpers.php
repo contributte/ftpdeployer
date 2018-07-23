@@ -9,11 +9,11 @@ class Helpers
 
 	/**
 	 * @param mixed[] $expected
-	 * @param mixed $config
+	 * @param mixed[] $config
 	 */
-	public static function validateConfig(array $expected, $config, string $name = 'config'): void
+	public static function validateConfig(array $expected, array $config, string $name = 'config'): void
 	{
-		$extra = array_diff_key((array) $config, $expected);
+		$extra = array_diff_key($config, $expected);
 
 		if ($extra !== []) {
 			$extra = implode(sprintf(', %s.', $name), array_keys($extra));

@@ -15,14 +15,14 @@ class Config
 	/** @var string */
 	private $mode = self::MODE_RUN;
 
-	/** @var string */
+	/** @var string|null */
 	private $logFile;
 
-	/** @var string */
+	/** @var string|null */
 	private $tempDir;
 
 	/** @var bool */
-	private $colors;
+	private $colors = false;
 
 	/** @var Section[] */
 	private $sections = [];
