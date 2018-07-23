@@ -4,13 +4,13 @@
 
 -----
 
-[![Build Status](https://img.shields.io/travis/contributte/console.svg?style=flat-square)](https://travis-ci.org/contributte/deployer-extension)
-[![Code coverage](https://img.shields.io/coveralls/contributte/console.svg?style=flat-square)](https://coveralls.io/r/contributte/deployer-extension)
-[![Licence](https://img.shields.io/packagist/l/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Build Status](https://img.shields.io/travis/contributte/deployer-extension.svg?style=flat-square)](https://travis-ci.org/contributte/deployer-extension)
+[![Code coverage](https://img.shields.io/coveralls/contributte/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/contributte/deployer-extension)
+[![Licence](https://img.shields.io/packagist/l/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
 
-[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![Downloads total](https://img.shields.io/packagist/dt/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![Latest stable](https://img.shields.io/packagist/v/contributte/console.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Downloads total](https://img.shields.io/packagist/dt/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Latest stable](https://img.shields.io/packagist/v/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
 
 ## Discussion / Help
 
