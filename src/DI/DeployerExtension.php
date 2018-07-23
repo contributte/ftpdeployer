@@ -1,73 +1,69 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Minetro\Deployer\DI;
+namespace Contributte\Deployer\DI;
 
-use Minetro\Deployer\Config\Config;
+use Contributte\Deployer\Config\Config;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 
 /**
  * Deployer Extension
- *
- * @author Milan Felix Sulc <sulcmil@gmail.com>
  */
 final class DeployerExtension extends CompilerExtension
 {
 
-    /** @var array */
-    private $defaults = [
-        'config' => [
-            'mode' => Config::MODE_TEST,
-            'logFile' => '%appDir/../log/deploy.log',
-            'tempDir' => '%appDir/../temp',
-            'colors' => NULL,
-        ],
-        'sections' => [],
-        'userdata' => [],
-        'plugins' => [],
-    ];
+	/** @var mixed[] */
+	private $defaults = [
+		'config' => [
+			'mode' => Config::MODE_TEST,
+			'logFile' => '%appDir/../log/deploy.log',
+			'tempDir' => '%appDir/../temp',
+			'colors' => null,
+		],
+		'sections' => [],
+		'userdata' => [],
+		'plugins' => [],
+	];
 
-    /** @var array */
-    private $sectionDefaults = [
-        'testMode' => TRUE,
-        'deployFile' => NULL,
-        'remote' => NULL,
-        'local' => '%appDir',
-        'ignore' => [],
-        'allowdelete' => TRUE,
-        'before' => [],
-        'after' => [],
-        'purge' => [],
-        'preprocess' => FALSE,
-        'passiveMode' => FALSE,
-    ];
+	/** @var mixed[] */
+	private $sectionDefaults = [
+		'testMode' => true,
+		'deployFile' => null,
+		'remote' => null,
+		'local' => '%appDir',
+		'ignore' => [],
+		'allowdelete' => true,
+		'before' => [],
+		'after' => [],
+		'purge' => [],
+		'preprocess' => false,
+		'passiveMode' => false,
+	];
 
-    /**
-     * Processes configuration data. Intended to be overridden by descendant.
-     *
-     * @return void
-     */
-    public function loadConfiguration()
-    {
-        // Validate config
-        $config = $this->validateConfig($this->defaults);
+	/**
+	 * Processes configuration data. Intended to be overridden by descendant.
+	 */
+	public function loadConfiguration(): void
+	{
+		// Validate config
+		$config = $this->validateConfig($this->defaults);
 
-        // Get builder
-        $builder = $this->getContainerBuilder();
+		// Get builder
+		$builder = $this->getContainerBuilder();
 
-        // Process sections
-        foreach ($config['sections'] as $name => $section) {
+		// Process sections
+		foreach ($config['sections'] as $name => $section) {
 
-            // Validate and merge section
-            $config['sections'][$name] = $this->validateConfig($this->sectionDefaults, $section);
-        }
+			// Validate and merge section
+			$config['sections'][$name] = $this->validateConfig($this->sectionDefaults, $section);
+		}
 
-        // Add deploy manager
-        $builder->addDefinition($this->prefix('manager'))
-            ->setClass('Minetro\Deployer\Manager', [
-                new Statement('Minetro\Deployer\Runner'),
-                new Statement('Minetro\Deployer\Config\ConfigFactory', [$config]),
-            ]);
-    }
+		// Add deploy manager
+		$builder->addDefinition($this->prefix('manager'))
+			->setClass('Minetro\Deployer\Manager', [
+				new Statement('Minetro\Deployer\Runner'),
+				new Statement('Minetro\Deployer\Config\ConfigFactory', [$config]),
+			]);
+	}
 
 }

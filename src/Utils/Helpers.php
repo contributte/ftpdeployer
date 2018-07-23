@@ -1,22 +1,24 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Minetro\Deployer\Utils;
+namespace Contributte\Deployer\Utils;
 
 use Nette\InvalidStateException;
 
 class Helpers
 {
 
-    /**
-     * @param string $command
-     * @param mixed $return_val
-     */
-    public static function validateConfig($expected, $config, $name = 'config')
-    {
-        if ($extra = array_diff_key((array)$config, $expected)) {
-            $extra = implode(", $name.", array_keys($extra));
-            throw new InvalidStateException("Unknown configuration option $name.$extra.");
-        }
-    }
+	/**
+	 * @param mixed[] $expected
+	 * @param mixed[] $config
+	 */
+	public static function validateConfig(array $expected, array $config, string $name = 'config'): void
+	{
+		$extra = array_diff_key($config, $expected);
+
+		if ($extra !== []) {
+			$extra = implode(sprintf(', %s.', $name), array_keys($extra));
+			throw new InvalidStateException(sprintf('Unknown configuration option %s.%s.', $name, $extra));
+		}
+	}
 
 }

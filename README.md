@@ -4,11 +4,13 @@
 
 -----
 
-[![Build Status](https://img.shields.io/travis/minetro/deployer-extension.svg?style=flat-square)](https://travis-ci.org/minetro/deployer-extension)
-[![Code coverage](https://img.shields.io/coveralls/minetro/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/minetro/deployer-extension)
-[![Total downloads](https://img.shields.io/packagist/dt/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
-[![Latest stable](https://img.shields.io/packagist/v/minetro/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/minetro/deployer-extension)
-[![HHVM Status](https://img.shields.io/hhvm/minetro/deployer-extension.svg?style=flat-square)](http://hhvm.h4cc.de/package/minetro/deployer-extension)
+[![Build Status](https://img.shields.io/travis/contributte/deployer-extension.svg?style=flat-square)](https://travis-ci.org/contributte/deployer-extension)
+[![Code coverage](https://img.shields.io/coveralls/contributte/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/contributte/deployer-extension)
+[![Licence](https://img.shields.io/packagist/l/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+
+[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Downloads total](https://img.shields.io/packagist/dt/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
+[![Latest stable](https://img.shields.io/packagist/v/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
 
 ## Discussion / Help
 
@@ -19,177 +21,45 @@
 $ composer require minetro/deployer-extension
 ```
 
-## Configuration
+## Versions
 
-### Register extension
-```yaml
-extensions:
-    deployer: Minetro\Deployer\DI\DeployerExtension
-```
+| State       | Version | Branch   | PHP      |                 |
+|-------------|---------|----------|----------|-----------------|
+| dev         | `^3.1.0`  | `master` | `>= 7.1` |                 |
+| stable      | `^3.0.0`  | `master` | `>= 7.1` |                 |
+| stable      | `^2.0.0`  | `master` | `>= 5.5` | (old namespace) |
 
-### Configure extension
+## Overview
 
-Detailed configuration is described here [ftp-deployment](https://github.com/dg/ftp-deployment).
+- [Usage - how to register](/.docs/README.md#usage)
+- [Configuration - how to configure](/.docs/README.md#configuration)
+- [Listeners](/.docs/README.md#listeners)
+- [Deploy - how to deploy](/.docs/README.md#deploy)
+- [Plugins](/.docs/README.md#plugins)
 
-```yaml
-parameters:
-    deploy:
-        protocol: ftp # ftp|ftps
-        user: user1
-        password: mysecretpwd
-        scheme: example.com # example.com/www     
+## Maintainers
 
-deployer:
-    config:
-        mode: run
-        logFile: %appDir%/log/deployer.log
-        tempDir: %appDir%/temp
-        colors: off
-        
-    # User specific variables
-    userdata: 
+<table>
+    <tbody>
+        <tr>
+            <td align="center">
+                <a href="https://github.com/f3l1x">
+                    <img width="150" height="150" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=150">
+                </a>
+                </br>
+                <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
+            </td> 
+            <td align="center">
+                <a href="https://github.com/mabar">
+                    <img width="150" height="150" src="https://avatars0.githubusercontent.com/u/20974277?s=400&v=4">
+                </a>
+                </br>
+                <a href="https://github.com/mabar">Marek Bartoš</a>
+            </td>
+        </tr>
+    <tbody>
+</table>
 
-    # Plugins specification (see more in PLUGINS.md)
-    plugins:
-        
-    # Web sections
-    sections:
-        web1:
-            remote: %deploy.protocol%://%deploy.user%:%deploy.password%@%deploy.scheme%
-            local: %wwwDir%
-            testMode: false
+-----
 
-            allowdelete: on
-            passiveMode: on
-            preprocess: off
-
-            ignore:
-                # Common
-                - .git*
-                - .idea*
-                - .bowerrc
-                - composer.*
-                - bower.json
-                - gulpfile.js
-                - package.json
-
-                # Application
-                - /app/config/config.local.neon
-                - /bin
-                - /tests
-                - /node_modules
-                - /log/*
-                - "!/log/.htaccess"
-                - /temp/*
-                - "!/temp/.htaccess"
-
-                # Public
-                - /www/*.scss
-                - /www/*.less
-                - /www/temp
-                - /www/uploaded
-                - /www/stats
-
-            before:
-                #- [@\TestBeforeListener, onBefore]
-            after:
-                #- [@\TestAfterListener, onAfter]
-
-            purge:
-                - temp/cache
-                - temp/myfolder
-```
-
-### More webs <=> more sections
-
-```yaml
-deployer:
-    section:
-        example.com:
-            ...
-        test.cz:
-            ...
-```
-
-## Listeners
-
-You can register service which implement `AfterListener` or `BeforeListener`.
-
-Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/examples).
-
-Or in special [`PLUGINS.md`](https://github.com/minetro/deployer-extension/tree/master/PLUGINS.md) readme file.
-
-## Deploy
-
-See example [scripts here](https://github.com/minetro/deployer-extension/tree/master/examples). 
-
-### Automatic
-
-Config is automatic passed via extension.
-
-```php
-# Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
-$dm->deploy();
-```
-
-### Manual
-
-You have to create your configuration by yourself.
-
-```php
-# Create config
-$config = new Config();
-$config->setLogFile(..);
-$config->setMode(..);
-
-$section = new Section();
-$section->setName(..);
-$config->addSection($section);
-```
-
-```php
-# Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
-$dm->manualDeploy($config);
-```
-
-```php
-# Inject Deploy Manager
-use Minetro\Deployer;
-
-/** @var Deployer\Manager @inject */
-public $dm;
-
-public function actionDeploy() 
-{
-    $this->dm->manulDeploy($config);
-}
-```
-
-### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy))
-
-Place it by yourself (for example root/deploy.php). Be careful about `local` and `tempDir`, there depend on location.
-
-```php
-require __DIR__ . '/vendor/autoload.php';
-
-# Configurator
-$configurator = new Nette\Configurator;
-$configurator->setDebugMode(TRUE);
-$configurator->enableDebugger(__DIR__ . '/../log');
-$configurator->setTempDirectory(__DIR__ . '/../temp');
-$configurator->createRobotLoader()
-    ->addDirectory(__DIR__)
-    ->register();
-
-# Configs
-$configurator->addConfig(__DIR__ . '/config/config.neon');
-
-# Create DI Container
-$container = $configurator->createContainer();
-
-# Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
-$dm->deploy();
-```
+Thank you for testing, reporting and contributing.

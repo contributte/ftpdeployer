@@ -1,45 +1,65 @@
 language: php
+
 php:
-    - 5.5
-    - 5.6
-    - 7.0
-    - hhvm
+  - 7.1
+  - 7.2
 
-matrix:
-  allow_failures:
-      - php: hhvm-nightly
+before_install:
+  # turn off XDebug
+  - phpenv config-rm xdebug.ini || return 0
 
+install:
+  # Composer
+  - travis_retry composer install --no-progress --prefer-dist
+
+script:
+  # Nette/Tester
+  - composer run-script tester
+
+jobs:
   include:
-    - php: 5.6
-      env: COMPOSER_FLAG=--prefer-lowest
-    - php: 5.6
-      env: COMPOSER_FLAG=--prefer-stable
-    - php: 7.0
-      env: COMPOSER_FLAG=--prefer-lowest
-    - php: 7.0
-      env: COMPOSER_FLAG=--prefer-stable
+    - env: title="Lowest Dependencies 7.1"
+      php: 7.1
+      install:
+        - travis_retry composer update --no-progress --prefer-dist --prefer-lowest
+      script:
+        - composer run-script tester
+
+    - env: title="Lowest Dependencies 7.2"
+      php: 7.2
+      install:
+        - travis_retry composer update --no-progress --prefer-dist --prefer-lowest
+      script:
+        - composer run-script tester
+
+    - stage: Quality Assurance
+      php: 7.2
+      script:
+        - composer run-script qa
+
+    - stage: Test Coverage
+      php: 7.2
+      script:
+        - composer run-script coverage
+      after_script:
+        - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
+        - php coveralls.phar --verbose --config tests/.coveralls.yml
+
+    - stage: Phpstan
+      php: 7.2
+      script:
+        - composer run-script phpstan-install
+        - composer run-script phpstan
+
+  allow_failures:
+    - stage: Test Coverage
+
+after_failure:
+  # Print *.actual content
+  - for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
 sudo: false
 
-before_script:
-    # Update Composer
-    - travis_retry composer self-update
-
-    # Install Nette Tester
-    - travis_retry composer update --no-interaction --prefer-source $COMPOSER_FLAG
-
-    # Coveralls
-    - if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then cat ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini >> ./tests/php-unix.ini; fi
-    - if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then NTESTER_FLAGS="--coverage ./coverage.xml --coverage-src ./src"; else TESTER_FLAGS=""; fi
-
-script:
-    - vendor/bin/tester tests/cases -s -p php -c tests/php-unix.ini $NTESTER_FLAGS
-
-after_script:
-    # Coveralls
-    - if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then composer require satooshi/php-coveralls; fi
-    - if [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then php vendor/bin/coveralls -c tests/.coveralls.yml -v; fi
-
-after_failure:
-    # Print *.actual content
-    - 'for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done'
+cache:
+  directories:
+    - $HOME/.composer/cache

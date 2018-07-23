@@ -1,17 +1,16 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Minetro\Deployer\Utils;
+namespace Contributte\Deployer\Utils;
 
 class System
 {
 
-    /**
-     * @param string $command
-     * @param mixed $return_val
-     */
-    public static function run($command, &$return_val)
-    {
-        passthru($command, $return_val);
-    }
+	/**
+	 * @param mixed $return_val
+	 */
+	public static function run(string $command, &$return_val): void
+	{
+		passthru($command, $return_val);
+	}
 
 }

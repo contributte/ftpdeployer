@@ -1,31 +1,56 @@
 {
-  "name": "minetro/deployer-extension",
+  "name": "contributte/deployer-extension",
   "description": "Ftp-Deployment Extension for Nette",
   "type": "library",
   "license": ["BSD-3-Clause"],
-  "homepage": "https://github.com/minetro/deployer-extension",
+  "homepage": "https://github.com/contributte/deployer-extension",
   "authors": [
     {
       "name": "Milan Felix Sulc",
-      "homepage": "http://jfx.cz"
+      "homepage": "https://f3l1x.io"
     }
   ],
   "require": {
-    "php": ">=5.5",
-    "nette/di": "~2.3.0|~2.4.0",
-    "dg/ftp-deployment": "~2.5.0"
+    "php": ">=7.1",
+    "nette/di": "~2.4.13",
+    "dg/ftp-deployment": "~3.0.1"
   },
   "require-dev": {
-    "nette/tester": "~1.7.0",
-    "mockery/mockery": "~0.9.5",
-    "symfony/console": "~3.1.0"
-  },
-  "suggest": {
-    "symfony/console": "For CLI usage"
+    "ninjify/qa": "^0.8.0",
+    "ninjify/nunjuck": "^0.2.0",
+    "mockery/mockery": "~1.1.0"
   },
   "autoload": {
     "psr-4": {
-      "Minetro\\Deployer\\": "src"
+      "Contributte\\Deployer\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "qa": [
+      "linter src tests",
+      "codesniffer src tests"
+    ],
+    "tester": [
+      "tester -s -p php --colors 1 -C tests/cases"
+    ],
+    "coverage": [
+      "tester -s -p php --colors 1 -C -d extension=xdebug.so --coverage ./coverage.xml --coverage-src ./src tests/cases"
+    ],
+    "phpstan-install": [
+      "mkdir -p temp/phpstan",
+      "composer require -d temp/phpstan phpstan/phpstan:0.10.1",
+      "composer require -d temp/phpstan phpstan/phpstan-nette:0.10",
+      "composer require -d temp/phpstan phpstan/phpstan-strict-rules:0.10"
+    ],
+    "phpstan": [
+      "temp/phpstan/vendor/bin/phpstan analyse -l max -c phpstan.neon src"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.1-dev"
     }
   }
 }
