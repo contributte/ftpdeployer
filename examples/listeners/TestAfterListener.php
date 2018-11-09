@@ -3,9 +3,9 @@
 use Deployment\Deployer;
 use Deployment\Logger;
 use Deployment\Server;
-use Minetro\Deployer\Config\Config;
-use Minetro\Deployer\Config\Section;
-use Minetro\Deployer\Listeners\AfterListener;
+use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\Section;
+use Contributte\Deployer\Listeners\AfterListener;
 
 class TestAfterListener implements AfterListener
 {
