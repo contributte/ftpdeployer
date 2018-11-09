@@ -102,13 +102,13 @@ deployer:
 
 You can register service which implement `AfterListener` or `BeforeListener`.
 
-Example you can [find here](https://github.com/minetro/deployer-extension/tree/master/examples).
+Example you can [find here](https://github.com/contributte/deployer-extension/tree/master/examples).
 
 Or in plugins section [here](#plugins).
 
 ## Deploy
 
-See example [scripts here](https://github.com/minetro/deployer-extension/tree/master/examples). 
+See example [scripts here](https://github.com/contributte/deployer-extension/tree/master/examples). 
 
 ### Automatic
 
@@ -116,7 +116,7 @@ Config is automatic passed via extension.
 
 ```php
 # Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
+$dm = $container->getByType('Contributte\Deployer\Manager');
 $dm->deploy();
 ```
 
@@ -137,7 +137,7 @@ $config->addSection($section);
 
 ```php
 # Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
+$dm = $container->getByType('Contributte\Deployer\Manager');
 $dm->manualDeploy($config);
 ```
 
@@ -154,7 +154,7 @@ public function actionDeploy()
 }
 ```
 
-### Prepared deploy script ([deploy.php](https://github.com/minetro/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/minetro/deployer-extension/tree/master/examples/deploy))
+### Prepared deploy script ([deploy.php](https://github.com/contributte/deployer-extension/tree/master/examples/deploy.php) & [deploy](https://github.com/contributte/deployer-extension/tree/master/examples/deploy))
 
 Place it by yourself (for example root/deploy.php). Be careful about `local` and `tempDir`, there depend on location.
 
@@ -177,7 +177,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $container = $configurator->createContainer();
 
 # Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
+$dm = $container->getByType('Contributte\Deployer\Manager');
 $dm->deploy();
 ```
 

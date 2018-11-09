@@ -1,5 +1,7 @@
 <?php
 
+use Contributte\Deployer\Manager;
+
 require __DIR__ . '/vendor/autoload.php';
 
 # Configurator
@@ -18,5 +20,5 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $container = $configurator->createContainer();
 
 # Create Deploy Manager
-$dm = $container->getByType('Minetro\Deployer\Manager');
+$dm = $container->getByType(Manager::class);
 $dm->deploy();

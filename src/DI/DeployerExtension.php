@@ -3,6 +3,9 @@
 namespace Contributte\Deployer\DI;
 
 use Contributte\Deployer\Config\Config;
+use Contributte\Deployer\Config\ConfigFactory;
+use Contributte\Deployer\Manager;
+use Contributte\Deployer\Runner;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
 
@@ -60,9 +63,9 @@ final class DeployerExtension extends CompilerExtension
 
 		// Add deploy manager
 		$builder->addDefinition($this->prefix('manager'))
-			->setFactory('Minetro\Deployer\Manager', [
-				new Statement('Minetro\Deployer\Runner'),
-				new Statement('Minetro\Deployer\Config\ConfigFactory', [$config]),
+			->setFactory(Manager::class, [
+				new Statement(Runner::class),
+				new Statement(ConfigFactory::class, [$config]),
 			]);
 	}
 
