@@ -60,7 +60,7 @@ final class DeployerExtension extends CompilerExtension
 
 		// Add deploy manager
 		$builder->addDefinition($this->prefix('manager'))
-			->setClass('Minetro\Deployer\Manager', [
+			->setFactory('Minetro\Deployer\Manager', [
 				new Statement('Minetro\Deployer\Runner'),
 				new Statement('Minetro\Deployer\Config\ConfigFactory', [$config]),
 			]);
