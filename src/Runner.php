@@ -95,6 +95,11 @@ class Runner
 		// Create *Server
 		$server = $this->createServer($section);
 
+		// Permissions
+		$server->filePermissions = $section->getFilePermissions();
+		$server->dirPermissions = $section->getDirPermissions();
+
+
 		// Create deployer
 		$deployment = new Deployer($server, (string) $section->getLocal(), $this->logger);
 
