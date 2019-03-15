@@ -41,6 +41,8 @@ final class DeployerExtension extends CompilerExtension
 		'purge' => [],
 		'preprocess' => false,
 		'passiveMode' => false,
+		'filePermissions' => '',
+		'dirPermissions' => '',
 	];
 
 	/**
