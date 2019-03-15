@@ -99,7 +99,6 @@ class Runner
 		$server->filePermissions = $section->getFilePermissions();
 		$server->dirPermissions = $section->getDirPermissions();
 
-
 		// Create deployer
 		$deployment = new Deployer($server, (string) $section->getLocal(), $this->logger);
 
