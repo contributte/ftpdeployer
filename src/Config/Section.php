@@ -47,6 +47,12 @@ class Section
 	/** @var bool */
 	private $passiveMode = true;
 
+	/** @var string */
+	private $filePermissions = '';
+
+	/** @var string */
+	private $dirPermissions = '';
+
 	public function getName(): ?string
 	{
 		return $this->name;
@@ -239,6 +245,26 @@ class Section
 	public function setTestMode(bool $testMode): void
 	{
 		$this->testMode = $testMode;
+	}
+
+	public function getFilePermissions(): ?int
+	{
+		return empty($this->filePermissions) ? null : octdec($this->filePermissions);
+	}
+
+	public function setFilePermissions(string $mask): void
+	{
+		$this->filePermissions = $mask;
+	}
+
+	public function getDirPermissions(): ?int
+	{
+		return empty($this->dirPermissions) ? null : octdec($this->dirPermissions);
+	}
+
+	public function setDirPermissions(string $mask): void
+	{
+		$this->dirPermissions = $mask;
 	}
 
 }
