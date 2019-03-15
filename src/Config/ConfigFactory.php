@@ -68,6 +68,8 @@ class ConfigFactory
 			$section->setBeforeCallbacks($sdata['before']);
 			$section->setPassiveMode($sdata['passiveMode']);
 			$section->setPurges($sdata['purge']);
+			$section->setFilePermissions($sdata['filePermissions']);
+			$section->setDirPermissions($sdata['dirPermissions']);
 
 			// Add to config
 			$config->addSection($section);
