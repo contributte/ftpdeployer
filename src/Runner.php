@@ -135,7 +135,9 @@ class Runner
 		$deployment->runBefore = $bc[0];
 		$deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section): void {
 			foreach ($bc[1] as $c) {
-				call_user_func_array([$c, 'onBefore'], [$config, $section, $server, $logger, $deployer]);
+				// bugfix
+				//call_user_func_array([$c, 'onBefore'], [$config, $section, $server, $logger, $deployer]);
+				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
 			}
 		};
 
@@ -147,7 +149,9 @@ class Runner
 		$deployment->runAfter = $ac[0];
 		$deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section): void {
 			foreach ($ac[1] as $c) {
-				call_user_func_array([$c, 'onAfter'], [$config, $section, $server, $logger, $deployer]);
+				// bugfix
+				//call_user_func_array([$c, 'onAfter'], [$config, $section, $server, $logger, $deployer]);
+				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
 			}
 		};
 
