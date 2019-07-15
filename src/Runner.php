@@ -129,22 +129,22 @@ class Runner
 
 		// Before callbacks
 		$deployment->runBefore[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
-			foreach ($section->getBeforeCallbacks() as $ac){
-				if(is_callable($ac)){
-					call_user_func_array($ac, [$config, $section, $server, $logger, $deployer]);
+			foreach ($section->getBeforeCallbacks() as $bc) {
+				if(is_callable($bc)) {
+					call_user_func_array($bc, [$config, $section, $server, $logger, $deployer]);
 				} else {
-					$logger->log("Before callback '".get_class($ac[0])."::$ac[1]' not exists.","red");
+					$logger->log('Before callback \'' . get_class($bc[0]) . '::' . $bc[1] . '\' not exists.','red');
 				}
 			}
 		};
 
 		// After callbacks
 		$deployment->runAfter[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
-			foreach ($section->getAfterCallbacks() as $ac){
-				if(is_callable($ac)){
+			foreach ($section->getAfterCallbacks() as $ac) {
+				if(is_callable($ac)) {
 					call_user_func_array($ac, [$config, $section, $server, $logger, $deployer]);
 				} else {
-					$logger->log("After callback '".get_class($ac[0])."::$ac[1]' not exists.","red");
+					$logger->log('After callback \'' . get_class($ac[0]) . '::' . $ac[1] . '\' not exists.','red');
 				}
 			}
 		};
