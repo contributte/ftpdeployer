@@ -128,30 +128,24 @@ class Runner
 		$deployment->testMode = $section->isTestMode();
 
 		// Before callbacks
-		$bc = [[], []];
-		foreach ($section->getBeforeCallbacks() as $cb) {
-			$bc[is_callable($cb)][] = $cb;
-		}
-		$deployment->runBefore = $bc[0];
-		$deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section): void {
-			foreach ($bc[1] as $c) {
-				// bugfix
-				//call_user_func_array([$c, 'onBefore'], [$config, $section, $server, $logger, $deployer]);
-				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
+		$deployment->runBefore[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
+			foreach ($section->getBeforeCallbacks() as $ac){
+				if(is_callable($ac)){
+					call_user_func_array($ac, [$config, $section, $server, $logger, $deployer]);
+				} else {
+					$logger->log("Before callback '".get_class($ac[0])."::$ac[1]' not exists.","red");
+				}
 			}
 		};
 
 		// After callbacks
-		$ac = [[], []];
-		foreach ($section->getAfterCallbacks() as $cb) {
-			$ac[is_callable($cb)][] = $cb;
-		}
-		$deployment->runAfter = $ac[0];
-		$deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section): void {
-			foreach ($ac[1] as $c) {
-				// bugfix
-				//call_user_func_array([$c, 'onAfter'], [$config, $section, $server, $logger, $deployer]);
-				call_user_func_array($c, [$config, $section, $server, $logger, $deployer]);
+		$deployment->runAfter[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
+			foreach ($section->getAfterCallbacks() as $ac){
+				if(is_callable($ac)){
+					call_user_func_array($ac, [$config, $section, $server, $logger, $deployer]);
+				} else {
+					$logger->log("After callback '".get_class($ac[0])."::$ac[1]' not exists.","red");
+				}
 			}
 		};
 
