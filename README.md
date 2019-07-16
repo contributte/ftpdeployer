@@ -14,11 +14,11 @@
 
 ## Discussion / Help
 
-[![Join the chat](https://img.shields.io/gitter/room/minetro/nette.svg?style=flat-square)](https://gitter.im/minetro/nette?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat](https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square)](http://bit.ly/ctteg)
 
 ## Install
 ```sh
-$ composer require minetro/deployer-extension
+$ composer require contributte/deployer-extension
 ```
 
 ## Versions
