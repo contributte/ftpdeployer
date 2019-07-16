@@ -19,6 +19,11 @@ class Runner
 	/** @var Logger */
 	private $logger;
 
+	/**
+	 * @param Config $config
+	 *
+	 * @throws \Exception
+	 */
 	public function run(Config $config): void
 	{
 		// Create logger
@@ -38,9 +43,11 @@ class Runner
 
 		// Get sections and get sections names
 		$sections = $config->getSections();
-		$sectionNames = array_map(function (Section $s) {
-			return $s->getName();
-		}, $sections);
+		$sectionNames = array_map(
+			function (Section $s) {
+				return $s->getName();
+			}, $sections
+		);
 
 		// Show info
 		$this->logger->log(sprintf('Found sections: %d (%s)', count($sectionNames), implode(',', $sectionNames)));
@@ -83,7 +90,11 @@ class Runner
 	}
 
 	/**
-	 * @throws DeployException
+	 * @param Config $config
+	 * @param Section $section
+	 *
+	 * @return Deployer
+	 * @throws \Exception
 	 */
 	public function createDeployer(Config $config, Section $section): Deployer
 	{
@@ -128,32 +139,36 @@ class Runner
 		$deployment->testMode = $section->isTestMode();
 
 		// Before callbacks
-		$bc = [[], []];
-		foreach ($section->getBeforeCallbacks() as $cb) {
-			$bc[is_callable($cb)][] = $cb;
-		}
-		$deployment->runBefore = $bc[0];
-		$deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section): void {
-			foreach ($bc[1] as $c) {
-				call_user_func_array([$c, 'onBefore'], [$config, $section, $server, $logger, $deployer]);
+		$deployment->runBefore[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
+			foreach ($section->getBeforeCallbacks() as $bc) {
+				if(is_callable($bc)) {
+				    call_user_func_array($bc, [$config, $section, $server, $logger, $deployer]);
+				} else {
+					$logger->log('Before callback \'' . get_class($bc[0]) . '::' . $bc[1] . '\' not exists.', 'red');
+				}
 			}
 		};
 
 		// After callbacks
-		$ac = [[], []];
-		foreach ($section->getAfterCallbacks() as $cb) {
-			$ac[is_callable($cb)][] = $cb;
-		}
-		$deployment->runAfter = $ac[0];
-		$deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section): void {
-			foreach ($ac[1] as $c) {
-				call_user_func_array([$c, 'onAfter'], [$config, $section, $server, $logger, $deployer]);
+		$deployment->runAfter[] = function (Server $server, Logger $logger, Deployer $deployer) use ($config, $section): void {
+			foreach ($section->getAfterCallbacks() as $ac) {
+				if(is_callable($ac)) {
+					call_user_func_array($ac, [$config, $section, $server, $logger, $deployer]);
+				} else {
+					$logger->log('After callback \'' . get_class($ac[0]) . '::' . $ac[1] . '\' not exists.', 'red');
+				}
 			}
 		};
 
 		return $deployment;
 	}
 
+	/**
+	* @param Section $section
+	*
+	* @return Server
+	* @throws \Exception
+	*/
 	protected function createServer(Section $section): Server
 	{
 		return parse_url((string) $section->getRemote(), PHP_URL_SCHEME) === 'sftp'

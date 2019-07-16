@@ -8,6 +8,9 @@ use Contributte\Deployer\Manager;
 use Contributte\Deployer\Runner;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Statement;
+use Nette\Schema\Expect;
+use Nette\Schema\Processor;
+use Nette\Schema\Schema;
 
 /**
  * Deployer Extension
@@ -15,60 +18,85 @@ use Nette\DI\Statement;
 final class DeployerExtension extends CompilerExtension
 {
 
-	/** @var mixed[] */
-	private $defaults = [
-		'config' => [
-			'mode' => Config::MODE_TEST,
-			'logFile' => '%appDir/../log/deploy.log',
-			'tempDir' => '%appDir/../temp',
-			'colors' => null,
-		],
-		'sections' => [],
-		'userdata' => [],
-		'plugins' => [],
-	];
+    public function getConfigSchema() : Schema
+    {
+        return Expect::structure(
+            [
+            'config' => Expect::structure(
+                [
+                'mode' => Expect::string(Config::MODE_TEST),
+                'logFile' => Expect::string('%appDir/../log/deploy.log'),
+                'tempDir' => Expect::string('%appDir/../temp'),
+                'colors' => Expect::bool(),
+                ]
+            ),
+            'sections' => Expect::array(),
+            'userdata' => Expect::array(),
+            'plugins' => Expect::array()
+            ]
+        );
+    }
 
-	/** @var mixed[] */
-	private $sectionDefaults = [
-		'testMode' => true,
-		'deployFile' => null,
-		'remote' => null,
-		'local' => '%appDir',
-		'ignore' => [],
-		'allowdelete' => true,
-		'before' => [],
-		'after' => [],
-		'purge' => [],
-		'preprocess' => false,
-		'passiveMode' => false,
-		'filePermissions' => '',
-		'dirPermissions' => '',
-	];
+    /**
+     * Validates section config
+     *
+     * @param array $data Config array of section
+     *
+     * @return array
+     */
+    public function validateSectionConfig(array $data): array
+    {
+        $schema = Expect::structure(
+            [
+            'remote' => Expect::string()->required(),
+            'local' => Expect::string()->required(),
+            'deployFile' => Expect::string('.dep'),
+            'ignore' => Expect::array(),
+            'purge' => Expect::array(),
+            'after' => Expect::array(),
+            'before' => Expect::array(),
+            'testMode' => Expect::bool(false),
+            'preprocess' => Expect::bool(false),
+            'allowdelete' => Expect::bool(true),
+            'passiveMode' => Expect::bool(false),
+            'filePermissions' => Expect::string(''),
+            'dirPermissions' => Expect::string(''),
+            ]
+        );
 
-	/**
-	 * Processes configuration data. Intended to be overridden by descendant.
-	 */
-	public function loadConfiguration(): void
-	{
-		// Validate config
-		$config = $this->validateConfig($this->defaults);
+        $processor = new Processor();
+        return (array) $processor->process($schema, $data);
+    }
 
-		// Get builder
-		$builder = $this->getContainerBuilder();
+    /**
+     * Processes configuration data. Intended to be overridden by descendant.
+     *
+     * @return void
+     */
+    public function loadConfiguration(): void
+    {
+        // Validate config
+        $config =  (array) $this->config;
+        $config['config'] = (array) $this->config->config;
 
-		// Process sections
-		foreach ($config['sections'] as $name => $section) {
+        // Get builder
+        $builder = $this->getContainerBuilder();
 
-			// Validate and merge section
-			$config['sections'][$name] = $this->validateConfig($this->sectionDefaults, $section);
-		}
+        // Process sections
+        foreach ($config['sections'] as $name => $section) {
 
-		// Add deploy manager
-		$builder->addDefinition($this->prefix('manager'))
-			->setFactory(Manager::class, [
-				new Statement(Runner::class),
-				new Statement(ConfigFactory::class, [$config]),
-			]);
-	}
+            // Validate and merge section
+            $config['sections'][$name] = $this->validateSectionConfig($section);
+        }
+
+        // Add deploy manager
+        $builder->addDefinition($this->prefix('manager'))
+            ->setFactory(
+                Manager::class, [
+                    new Statement(Runner::class),
+                    new Statement(ConfigFactory::class, [$config]),
+                    ]
+            );
+    }
 
 }
