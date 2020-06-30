@@ -46,11 +46,13 @@ test(function (): void {
 
 	$runner->run($config);
 
+	sort($localFiles);
+
 	Assert::equal([
-		'/bar.log.deploytmp',
-		'/foo.txt.deploytmp',
 		'/.htdeployment.deploytmp',
 		'/.htdeployment.running',
+		'/bar.log.deploytmp',
+		'/foo.txt.deploytmp',
 	], $localFiles);
 
 	$server->mockery_verify();
