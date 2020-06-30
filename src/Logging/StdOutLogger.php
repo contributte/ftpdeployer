@@ -14,17 +14,20 @@ final class StdOutLogger extends Logger
 		 */
 	}
 
-	public function log(string $s, string $color = null, int $shorten = 1): void
+	public function log(string $s, ?string $color = null, int $shorten = 1): void
 	{
 		if ($shorten && (bool) preg_match('#^\n?.*#', $s, $m)) {
 			$s = $m[0];
 		}
+
 		$s .= "        \n";
+
 		if ($this->useColors && (bool) $color) {
 			$c = explode('/', (string) $color);
 			$s = "\033["
 				. ($c[1] === '' ? $c[1] : ';4') . sprintf('m%s\033[0m', $s);
 		}
+
 		echo $s;
 	}
 

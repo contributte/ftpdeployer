@@ -129,9 +129,11 @@ class Runner
 
 		// Before callbacks
 		$bc = [[], []];
+
 		foreach ($section->getBeforeCallbacks() as $cb) {
 			$bc[is_callable($cb)][] = $cb;
 		}
+
 		$deployment->runBefore = $bc[0];
 		$deployment->runBefore[] = function ($server, $logger, $deployer) use ($bc, $config, $section): void {
 			foreach ($bc[1] as $c) {
@@ -141,9 +143,11 @@ class Runner
 
 		// After callbacks
 		$ac = [[], []];
+
 		foreach ($section->getAfterCallbacks() as $cb) {
 			$ac[is_callable($cb)][] = $cb;
 		}
+
 		$deployment->runAfter = $ac[0];
 		$deployment->runAfter[] = function ($server, $logger, $deployer) use ($ac, $config, $section): void {
 			foreach ($ac[1] as $c) {

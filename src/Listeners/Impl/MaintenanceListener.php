@@ -57,7 +57,9 @@ class MaintenanceListener implements BeforeListener, AfterListener
 
 	public function onBefore(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void
 	{
-		if (!$this->load($config, $section, $server, $logger, $deployer)) return;
+		if (!$this->load($config, $section, $server, $logger, $deployer)) {
+			return;
+		}
 
 		// Run maintenance procedures ==========================================
 
@@ -84,7 +86,9 @@ class MaintenanceListener implements BeforeListener, AfterListener
 
 	public function onAfter(Config $config, Section $section, Server $server, Logger $logger, Deployer $deployer): void
 	{
-		if (!$this->load($config, $section, $server, $logger, $deployer)) return;
+		if (!$this->load($config, $section, $server, $logger, $deployer)) {
+			return;
+		}
 
 		// Run maintenance procedures ==========================================
 
@@ -158,9 +162,11 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	{
 		foreach ($list as $pair) {
 			// Skip invalid pair
-			if (!is_array($pair) && count($pair) !== 2) continue;
+			if (!is_array($pair) && count($pair) !== 2) {
+				continue;
+			}
 
-			 [$file, $replaceBy] = $pair;
+			[$file, $replaceBy] = $pair;
 
 			if ($reverse) {
 				// REVERSE MODE
@@ -194,9 +200,11 @@ class MaintenanceListener implements BeforeListener, AfterListener
 	{
 		foreach ($list as $pair) {
 			// Skip invalid pair
-			if (!is_array($pair) && count($pair) !== 2) continue;
+			if (!is_array($pair) && count($pair) !== 2) {
+				continue;
+			}
 
-			 [$old, $new] = $pair;
+			[$old, $new] = $pair;
 
 			// 1# rename to new file
 			$this->server->renameFile($old, $new);
