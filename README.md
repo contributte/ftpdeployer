@@ -1,6 +1,6 @@
 # Deployer Extension
 
-[Ftp-Deployment](https://github.com/dg/ftp-deployment) Extension for Nette. 
+[Ftp-Deployment](https://github.com/dg/ftp-deployment) Extension for Nette.
 
 -----
 
@@ -23,11 +23,10 @@ $ composer require contributte/deployer-extension
 
 ## Versions
 
-| State       | Version | Branch   | PHP      |                 |
-|-------------|---------|----------|----------|-----------------|
-| dev         | `^3.1.0`  | `master` | `>= 7.1` |                 |
-| stable      | `^3.0.0`  | `master` | `>= 7.1` |                 |
-| stable      | `^2.0.0`  | `master` | `>= 5.5` | (old namespace) |
+| State       | Version   | Branch   | PHP      |                 |
+|-------------|-----------|----------|----------|-----------------|
+| dev         | `^3.2.0`  | `master` | `>= 7.2` |               |
+| stable      | `^3.1.0`  | `master` | `>= 7.2` |               |
 
 ## Overview
 
@@ -48,7 +47,7 @@ $ composer require contributte/deployer-extension
                 </a>
                 </br>
                 <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
-            </td> 
+            </td>
             <td align="center">
                 <a href="https://github.com/mabar">
                     <img width="150" height="150" src="https://avatars0.githubusercontent.com/u/20974277?s=150&v=4">
