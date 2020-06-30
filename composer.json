@@ -13,12 +13,12 @@
   "require": {
     "php": ">=7.1",
     "nette/di": "~2.4.13",
-    "dg/ftp-deployment": "~3.0.1"
+    "dg/ftp-deployment": "~3.3.0"
   },
   "require-dev": {
-    "ninjify/qa": "^0.8.0",
-    "ninjify/nunjuck": "^0.2.0",
-    "mockery/mockery": "~1.1.0"
+    "ninjify/qa": "^0.10.0",
+    "ninjify/nunjuck": "^0.3.0",
+    "mockery/mockery": "^1.4.0"
   },
   "autoload": {
     "psr-4": {
