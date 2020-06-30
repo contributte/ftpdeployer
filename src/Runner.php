@@ -38,7 +38,7 @@ class Runner
 
 		// Get sections and get sections names
 		$sections = $config->getSections();
-		$sectionNames = array_map(function (Section $s) {
+		$sectionNames = array_map(function (Section $s): ?string {
 			return $s->getName();
 		}, $sections);
 
@@ -96,8 +96,12 @@ class Runner
 		$server = $this->createServer($section);
 
 		// Permissions
-		$server->filePermissions = $section->getFilePermissions();
-		$server->dirPermissions = $section->getDirPermissions();
+		if ($section->getFilePermissions() !== null) {
+			$server->filePermissions = $section->getFilePermissions();
+		}
+		if ($section->getDirPermissions() !== null) {
+			$server->dirPermissions = $section->getDirPermissions();
+		}
 
 		// Create deployer
 		$deployment = new Deployer($server, (string) $section->getLocal(), $this->logger);
@@ -158,6 +162,9 @@ class Runner
 		return $deployment;
 	}
 
+	/**
+	 * @return SshServer|FtpServer
+	 */
 	protected function createServer(Section $section): Server
 	{
 		return parse_url((string) $section->getRemote(), PHP_URL_SCHEME) === 'sftp'

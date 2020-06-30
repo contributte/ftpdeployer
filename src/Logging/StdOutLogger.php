@@ -16,7 +16,7 @@ final class StdOutLogger extends Logger
 
 	public function log(string $s, ?string $color = null, int $shorten = 1): void
 	{
-		if ($shorten && (bool) preg_match('#^\n?.*#', $s, $m)) {
+		if ($shorten === 1 && (bool) preg_match('#^\n?.*#', $s, $m)) {
 			$s = $m[0];
 		}
 
