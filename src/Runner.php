@@ -99,6 +99,7 @@ class Runner
 		if ($section->getFilePermissions() !== null) {
 			$server->filePermissions = $section->getFilePermissions();
 		}
+
 		if ($section->getDirPermissions() !== null) {
 			$server->dirPermissions = $section->getDirPermissions();
 		}
