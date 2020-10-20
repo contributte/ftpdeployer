@@ -52,7 +52,7 @@ jobs:
       if: branch = master AND type = cron
       php: 7.4
       script:
-        - composer outdated --direct --strict
+        - composer outdated --direct
 
   allow_failures:
     - stage: Test Coverage
