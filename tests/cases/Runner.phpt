@@ -18,7 +18,7 @@ test(function (): void {
 	$config = new Config();
 	$config->addSection($section = new Section());
 	$section->setName('TEST');
-	$section->setLocal(FIXTURES_DIR);
+	$section->setLocal(TESTER_DIR . '/fixtures');
 	$section->setRemote('foobar');
 	$config->setTempDir(TEMP_DIR);
 
