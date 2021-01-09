@@ -1,64 +1,51 @@
-# Deployer Extension
+![](https://heatbadger.now.sh/github/readme/contributte/deployer-extension/)
 
-[Ftp-Deployment](https://github.com/dg/ftp-deployment) Extension for Nette.
+<p align=center>
+    <a href="https://github.com/contributte/deployer-extension/actions"><img src="https://badgen.net/github/checks/contributte/deployer-extension"></a>
+    <a href="https://coveralls.io/r/contributte/deployer-extension"><img src="https://badgen.net/coveralls/c/github/contributte/deployer-extension"></a>
+    <a href="https://packagist.org/packages/contributte/deployer-extension"><img src="https://badgen.net/packagist/dm/contributte/deployer-extension"></a>
+    <a href="https://packagist.org/packages/contributte/deployer-extension"><img src="https://badgen.net/packagist/v/contributte/deployer-extension"></a>
+</p>
+<p align=center>
+    <a href="https://packagist.org/packages/contributte/deployer-extension"><img src="https://badgen.net/packagist/php/contributte/deployer-extension"></a>
+    <a href="https://github.com/contributte/deployer-extension"><img src="https://badgen.net/github/license/contributte/deployer-extension"></a>
+    <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
+    <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
+    <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
+</p>
 
------
+<p align=center>
+    Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
+</p>
 
-[![Build Status](https://img.shields.io/travis/contributte/deployer-extension.svg?style=flat-square)](https://travis-ci.org/contributte/deployer-extension)
-[![Code coverage](https://img.shields.io/coveralls/contributte/deployer-extension.svg?style=flat-square)](https://coveralls.io/r/contributte/deployer-extension)
-[![Licence](https://img.shields.io/packagist/l/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![Downloads total](https://img.shields.io/packagist/dt/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![Latest stable](https://img.shields.io/packagist/v/contributte/deployer-extension.svg?style=flat-square)](https://packagist.org/packages/contributte/deployer-extension)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+## Usage
 
-## Discussion / Help
+To install latest version of `contributte/deployer-extension` use [Composer](https://getcomposer.com).
 
-[![Join the chat](https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square)](http://bit.ly/ctteg)
-
-## Install
-```sh
-$ composer require contributte/deployer-extension
 ```
+composer require contributte/deployer-extension
+```
+
+## Documentation
+
+For details on how to use this package, check out our [documentation](.docs).
 
 ## Versions
 
-| State       | Version   | Branch   | PHP      |                 |
-|-------------|-----------|----------|----------|-----------------|
-| dev         | `^3.2.0`  | `master` | `>= 7.2` |               |
-| stable      | `^3.1.0`  | `master` | `>= 7.2` |               |
+|  State   | Version  |  Branch  | Nette  |   PHP   |
+|----------|----------|----------|--------|---------|
+|   dev    |  ^3.3.0  |  master  |  3.0+  |  >=7.2  |
+|  stable  |  ^3.2.0  |  master  |  3.0+  |  >=7.2  |
 
-## Overview
+## Development
 
-- [Usage - how to register](/.docs/README.md#usage)
-- [Configuration - how to configure](/.docs/README.md#configuration)
-- [Listeners](/.docs/README.md#listeners)
-- [Deploy - how to deploy](/.docs/README.md#deploy)
-- [Plugins](/.docs/README.md#plugins)
+See [how to contribute](https://contributte.org) to this package. This package is currently maintained by these authors.
 
-## Maintainers
-
-<table>
-    <tbody>
-        <tr>
-            <td align="center">
-                <a href="https://github.com/f3l1x">
-                    <img width="150" height="150" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=150">
-                </a>
-                </br>
-                <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/mabar">
-                    <img width="150" height="150" src="https://avatars0.githubusercontent.com/u/20974277?s=150&v=4">
-                </a>
-                </br>
-                <a href="https://github.com/mabar">Marek Bartoš</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<a href="https://github.com/f3l1x">
+    <img width="80" height="80" src="https://avatars.githubusercontent.com/f3l1x">
+</a>
 
 -----
 
-Thank you for testing, reporting and contributing.
+Consider to [support](https://contributte.com/partners) **contributte** development team.
+Also thank you for using this package.
