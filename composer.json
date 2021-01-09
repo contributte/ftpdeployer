@@ -2,7 +2,7 @@
   "name": "contributte/deployer-extension",
   "description": "Ftp-Deployment Extension for Nette",
   "type": "library",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "homepage": "https://github.com/contributte/deployer-extension",
   "authors": [
     {
