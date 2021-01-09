@@ -7,63 +7,53 @@ use Contributte\Deployer\Config\ConfigFactory;
 use Contributte\Deployer\Manager;
 use Contributte\Deployer\Runner;
 use Nette\DI\CompilerExtension;
-use Nette\DI\Statement;
+use Nette\DI\Definitions\Statement;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
+use stdClass;
 
 /**
- * Deployer Extension
+ * @property-read stdClass $config
  */
 final class DeployerExtension extends CompilerExtension
 {
 
-	/** @var mixed[] */
-	private $defaults = [
-		'config' => [
-			'mode' => Config::MODE_TEST,
-			'logFile' => '%appDir/../log/deploy.log',
-			'tempDir' => '%appDir/../temp',
-			'colors' => null,
-		],
-		'sections' => [],
-		'userdata' => [],
-		'plugins' => [],
-	];
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'config' => Expect::structure([
+				'mode' => Expect::anyOf(Config::MODE_GENERATE, Config::MODE_RUN, Config::MODE_TEST)->default(Config::MODE_TEST),
+				'logFile' => Expect::string()->required(),
+				'tempDir' => Expect::string()->required(),
+				'colors' => Expect::string(),
+			]),
+			'userdata' => Expect::mixed(),
+			'plugins' => Expect::mixed(),
+			'sections' => Expect::arrayOf(
+				Expect::structure([
+					'testMode' => Expect::bool()->default(true),
+					'deployFile' => Expect::string(),
+					'remote' => Expect::string(),
+					'local' => Expect::string()->required(),
+					'ignore' => Expect::arrayOf('string'),
+					'allowdelete' => Expect::bool()->default(true),
+					'before' => Expect::mixed(),
+					'after' => Expect::mixed(),
+					'purge' => Expect::mixed(),
+					'preprocess' => Expect::bool()->default(false),
+					'passiveMode' => Expect::bool()->default(false),
+					'filePermissions' => Expect::string(),
+					'dirPermissions' => Expect::string(),
+				])->required()
+			),
+		]);
+	}
 
-	/** @var mixed[] */
-	private $sectionDefaults = [
-		'testMode' => true,
-		'deployFile' => null,
-		'remote' => null,
-		'local' => '%appDir',
-		'ignore' => [],
-		'allowdelete' => true,
-		'before' => [],
-		'after' => [],
-		'purge' => [],
-		'preprocess' => false,
-		'passiveMode' => false,
-		'filePermissions' => '',
-		'dirPermissions' => '',
-	];
-
-	/**
-	 * Processes configuration data. Intended to be overridden by descendant.
-	 */
 	public function loadConfiguration(): void
 	{
-		// Validate config
-		$config = $this->validateConfig($this->defaults);
-
-		// Get builder
 		$builder = $this->getContainerBuilder();
+		$config = $this->config;
 
-		// Process sections
-		foreach ($config['sections'] as $name => $section) {
-
-			// Validate and merge section
-			$config['sections'][$name] = $this->validateConfig($this->sectionDefaults, $section);
-		}
-
-		// Add deploy manager
 		$builder->addDefinition($this->prefix('manager'))
 			->setFactory(Manager::class, [
 				new Statement(Runner::class),
