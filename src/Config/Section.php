@@ -58,7 +58,7 @@ class Section
 		return $this->name;
 	}
 
-	public function setName(string $name): void
+	public function setName(?string $name): void
 	{
 		$this->name = $name;
 	}
@@ -68,7 +68,7 @@ class Section
 		return $this->remote;
 	}
 
-	public function setRemote(string $remote): void
+	public function setRemote(?string $remote): void
 	{
 		$this->remote = $remote;
 	}
@@ -78,7 +78,7 @@ class Section
 		return $this->local;
 	}
 
-	public function setLocal(string $local): void
+	public function setLocal(?string $local): void
 	{
 		$this->local = $local;
 	}
@@ -252,7 +252,7 @@ class Section
 		return $this->filePermissions === '' ? null : (int) octdec($this->filePermissions);
 	}
 
-	public function setFilePermissions(string $mask): void
+	public function setFilePermissions(?string $mask): void
 	{
 		$this->filePermissions = $mask;
 	}
@@ -262,7 +262,7 @@ class Section
 		return $this->dirPermissions === '' ? null : (int) octdec($this->dirPermissions);
 	}
 
-	public function setDirPermissions(string $mask): void
+	public function setDirPermissions(?string $mask): void
 	{
 		$this->dirPermissions = $mask;
 	}
