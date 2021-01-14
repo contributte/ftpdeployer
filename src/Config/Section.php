@@ -47,11 +47,11 @@ class Section
 	/** @var bool */
 	private $passiveMode = true;
 
-	/** @var string */
-	private $filePermissions = '';
+	/** @var string|null */
+	private $filePermissions;
 
-	/** @var string */
-	private $dirPermissions = '';
+	/** @var string|null */
+	private $dirPermissions;
 
 	public function getName(): ?string
 	{
@@ -249,7 +249,7 @@ class Section
 
 	public function getFilePermissions(): ?int
 	{
-		return $this->filePermissions === '' ? null : (int) octdec($this->filePermissions);
+		return (is_null($this->filePermissions) || $this->filePermissions === '') ? null : (int) octdec($this->filePermissions);
 	}
 
 	public function setFilePermissions(?string $mask): void
@@ -259,7 +259,7 @@ class Section
 
 	public function getDirPermissions(): ?int
 	{
-		return $this->dirPermissions === '' ? null : (int) octdec($this->dirPermissions);
+		return (is_null($this->dirPermissions) || $this->dirPermissions === '') ? null : (int) octdec($this->dirPermissions);
 	}
 
 	public function setDirPermissions(?string $mask): void

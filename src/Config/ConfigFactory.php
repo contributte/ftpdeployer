@@ -5,11 +5,11 @@ namespace Contributte\Deployer\Config;
 class ConfigFactory
 {
 
-	/** @var mixed[] */
+	/** @var object */
 	private $data;
 
 	/**
-	 * @param mixed[] $data
+	 * @param object $data
 	 */
 	public function __construct(object $data)
 	{
@@ -22,7 +22,8 @@ class ConfigFactory
 		$config = new Config();
 
 		// Parse mode
-		switch ($this->data->config->mode) {
+		if(isset($this->data->config) && isset($this->data->config->mode)){
+		    switch ($this->data->config->mode) {
 			case Config::MODE_GENERATE:
 				$mode = Config::MODE_GENERATE;
 				break;
@@ -31,29 +32,39 @@ class ConfigFactory
 				break;
 			default:
 				$mode = Config::MODE_TEST;
+		    }
+
+		    // Set mode (run|generate|test)
+		    $config->setMode($mode);
 		}
-
-		// Set mode (run|generate|test)
-		$config->setMode($mode);
-		$config->setLogFile($this->data->config->logFile);
-		$config->setTempDir($this->data->config->tempDir ?? sys_get_temp_dir() . '/deployment');
-
+		else
+		{
+		    $config->setMode(Config::MODE_TEST);
+		}
+		
+		$config->setLogFile((isset($this->data->config) && isset($this->data->config->logFile)) ? $this->data->config->logFile : '');
+		$config->setTempDir((isset($this->data->config) && isset($this->data->config->tempDir)) ? $this->data->config->tempDir : sys_get_temp_dir() . '/deployment');
+		
 		// Set or detect colors support
-		if ($this->data->config->colors !== null) {
+		if (isset($this->data->config) && isset($this->data->config->colors) && $this->data->config->colors !== null) 
+		{
 			$config->setColors((bool) $this->data->config->colors);
-		} else {
+		} 
+		else 
+		{
 			$config->setColors(PHP_SAPI === 'cli' && ((function_exists('posix_isatty') && posix_isatty(STDOUT))
 					|| getenv('ConEmuANSI') === 'ON' || getenv('ANSICON') !== false));
 		}
 
 		// Set user data
-		$config->setUserdata($this->data->userdata);
+		$config->setUserdata(isset($this->data->userdata) ? $this->data->userdata : []);
 
 		// Set plugins
-		$config->setPlugins($this->data->plugins);
+		$config->setPlugins(isset($this->data->plugins) ? $this->data->plugins : []);
 
 		// Parse sections
-		foreach ($this->data->sections as $name => $sdata) {
+		if(isset($this->data->sections)){
+		    foreach ($this->data->sections as $name => $sdata) {
 			$section = new Section();
 			$section->setName($name);
 			$section->setTestMode($sdata->testMode);
@@ -73,6 +84,7 @@ class ConfigFactory
 
 			// Add to config
 			$config->addSection($section);
+		    }
 		}
 
 		return $config;
