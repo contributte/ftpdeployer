@@ -249,7 +249,7 @@ class Section
 
 	public function getFilePermissions(): ?int
 	{
-		return (is_null($this->filePermissions) || $this->filePermissions === '') ? null : (int) octdec($this->filePermissions);
+		return (($this->filePermissions === null) || $this->filePermissions === '') ? null : (int) octdec($this->filePermissions);
 	}
 
 	public function setFilePermissions(?string $mask): void
@@ -259,7 +259,7 @@ class Section
 
 	public function getDirPermissions(): ?int
 	{
-		return (is_null($this->dirPermissions) || $this->dirPermissions === '') ? null : (int) octdec($this->dirPermissions);
+		return (($this->dirPermissions === null) || $this->dirPermissions === '') ? null : (int) octdec($this->dirPermissions);
 	}
 
 	public function setDirPermissions(?string $mask): void
