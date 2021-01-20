@@ -47,18 +47,18 @@ class Section
 	/** @var bool */
 	private $passiveMode = true;
 
-	/** @var string */
-	private $filePermissions = '';
+	/** @var string|null */
+	private $filePermissions;
 
-	/** @var string */
-	private $dirPermissions = '';
+	/** @var string|null */
+	private $dirPermissions;
 
 	public function getName(): ?string
 	{
 		return $this->name;
 	}
 
-	public function setName(string $name): void
+	public function setName(?string $name): void
 	{
 		$this->name = $name;
 	}
@@ -68,7 +68,7 @@ class Section
 		return $this->remote;
 	}
 
-	public function setRemote(string $remote): void
+	public function setRemote(?string $remote): void
 	{
 		$this->remote = $remote;
 	}
@@ -78,7 +78,7 @@ class Section
 		return $this->local;
 	}
 
-	public function setLocal(string $local): void
+	public function setLocal(?string $local): void
 	{
 		$this->local = $local;
 	}
@@ -249,20 +249,20 @@ class Section
 
 	public function getFilePermissions(): ?int
 	{
-		return $this->filePermissions === '' ? null : (int) octdec($this->filePermissions);
+		return (($this->filePermissions === null) || $this->filePermissions === '') ? null : (int) octdec($this->filePermissions);
 	}
 
-	public function setFilePermissions(string $mask): void
+	public function setFilePermissions(?string $mask): void
 	{
 		$this->filePermissions = $mask;
 	}
 
 	public function getDirPermissions(): ?int
 	{
-		return $this->dirPermissions === '' ? null : (int) octdec($this->dirPermissions);
+		return (($this->dirPermissions === null) || $this->dirPermissions === '') ? null : (int) octdec($this->dirPermissions);
 	}
 
-	public function setDirPermissions(string $mask): void
+	public function setDirPermissions(?string $mask): void
 	{
 		$this->dirPermissions = $mask;
 	}
