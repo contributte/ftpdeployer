@@ -22,7 +22,7 @@
 
 To install latest version of `contributte/deployer-extension` use [Composer](https://getcomposer.com).
 
-```
+```bash
 composer require contributte/deployer-extension
 ```
 

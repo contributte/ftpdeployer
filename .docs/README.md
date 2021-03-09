@@ -24,7 +24,7 @@ parameters:
         protocol: ftp # ftp|ftps
         user: user1
         password: mysecretpwd
-        scheme: example.com # example.com/www     
+        scheme: example.com # example.com/www
 
 deployer:
     config:
@@ -32,13 +32,13 @@ deployer:
         logFile: %appDir%/log/deployer.log
         tempDir: %appDir%/temp
         colors: off
-        
+
     # User specific variables
-    userdata: 
+    userdata:
 
     # Plugins specification (see more in PLUGINS.md)
     plugins:
-        
+
     # Web sections
     sections:
         web1:
@@ -108,7 +108,7 @@ Or in plugins section [here](#plugins).
 
 ## Deploy
 
-See example [scripts here](https://github.com/contributte/deployer-extension/tree/master/examples). 
+See example [scripts here](https://github.com/contributte/deployer-extension/tree/master/examples).
 
 ### Automatic
 
@@ -148,7 +148,7 @@ use Contributte\Deployer;
 /** @var Deployer\Manager @inject */
 public $dm;
 
-public function actionDeploy() 
+public function actionDeploy()
 {
     $this->dm->manulDeploy($config);
 }
@@ -187,7 +187,7 @@ $dm->deploy();
 
 This is prepared listener that help make maintenance mode easier.
 
-Plugin has two sections **rewrite** and **rename**. 
+Plugin has two sections **rewrite** and **rename**.
 
 You have to register to `before` and to `after` also (!).
 
@@ -200,7 +200,7 @@ After: *revert rewriting*
 ```yaml
 deployer:
     plugins:
-    
+
         maintenance:
             rewrite:
                 - [www/index.php, www/index.maintenance]
@@ -215,19 +215,19 @@ After: *revert renaming*
 ```yaml
 deployer:
     plugins:
-    
+
         maintenance:
             rename:
                 - [www/.maintenance.php, www/maintenance.php]
 ```
 
-You can combine rewriting and renaming together. 
+You can combine rewriting and renaming together.
 
 ## `ComposerInstallListener`
 
 This is prepared listener that runs command:
 
-```sh
+```bash
 composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
 ```
 
@@ -239,7 +239,7 @@ composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
 
 This is prepared listener that runs command:
 
-```sh
+```bash
 composer update --no-dev --prefer-dist --optimize-autoloader -d $DIR
 ```
 
