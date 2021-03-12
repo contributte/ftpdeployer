@@ -9,93 +9,94 @@
 - [Plugins](#plugins)
 
 ## Usage
-```yaml
+
+```neon
 extensions:
-    deployer: Contributte\Deployer\DI\DeployerExtension
+	deployer: Contributte\Deployer\DI\DeployerExtension
 ```
 
 ## Configuration
 
 Detailed configuration is described here [ftp-deployment](https://github.com/dg/ftp-deployment).
 
-```yaml
+```neon
 parameters:
-    deploy:
-        protocol: ftp # ftp|ftps
-        user: user1
-        password: mysecretpwd
-        scheme: example.com # example.com/www     
+	deploy:
+		protocol: ftp # ftp|ftps
+		user: user1
+		password: mysecretpwd
+		scheme: example.com # example.com/www
 
 deployer:
-    config:
-        mode: run
-        logFile: %appDir%/log/deployer.log
-        tempDir: %appDir%/temp
-        colors: off
-        
-    # User specific variables
-    userdata: 
+	config:
+		mode: run
+		logFile: %appDir%/log/deployer.log
+		tempDir: %appDir%/temp
+		colors: off
 
-    # Plugins specification (see more in PLUGINS.md)
-    plugins:
-        
-    # Web sections
-    sections:
-        web1:
-            remote: %deploy.protocol%://%deploy.user%:%deploy.password%@%deploy.scheme%
-            local: %wwwDir%
-            testMode: false
+	# User specific variables
+	userdata:
 
-            allowdelete: on
-            passiveMode: on
-            preprocess: off
+	# Plugins specification (see more in PLUGINS.md)
+	plugins:
 
-            ignore:
-                # Common
-                - .git*
-                - .idea*
-                - .bowerrc
-                - composer.*
-                - bower.json
-                - gulpfile.js
-                - package.json
+	# Web sections
+	sections:
+		web1:
+			remote: %deploy.protocol%://%deploy.user%:%deploy.password%@%deploy.scheme%
+			local: %wwwDir%
+			testMode: false
 
-                # Application
-                - /app/config/config.local.neon
-                - /bin
-                - /tests
-                - /node_modules
-                - /log/*
-                - "!/log/.htaccess"
-                - /temp/*
-                - "!/temp/.htaccess"
+			allowdelete: on
+			passiveMode: on
+			preprocess: off
 
-                # Public
-                - /www/*.scss
-                - /www/*.less
-                - /www/temp
-                - /www/uploaded
-                - /www/stats
+			ignore:
+				# Common
+				- .git*
+				- .idea*
+				- .bowerrc
+				- composer.*
+				- bower.json
+				- gulpfile.js
+				- package.json
 
-            before:
-                #- [@\TestBeforeListener, onBefore]
-            after:
-                #- [@\TestAfterListener, onAfter]
+				# Application
+				- /app/config/config.local.neon
+				- /bin
+				- /tests
+				- /node_modules
+				- /log/*
+				- "!/log/.htaccess"
+				- /temp/*
+				- "!/temp/.htaccess"
 
-            purge:
-                - temp/cache
-                - temp/myfolder
+				# Public
+				- /www/*.scss
+				- /www/*.less
+				- /www/temp
+				- /www/uploaded
+				- /www/stats
+
+			before:
+				#- [@\TestBeforeListener, onBefore]
+			after:
+				#- [@\TestAfterListener, onAfter]
+
+			purge:
+				- temp/cache
+				- temp/myfolder
 ```
 
 #### More webs <=> more sections
 
-```yaml
+```neon
 deployer:
-    section:
-        example.com:
-            ...
-        test.cz:
-            ...
+	section:
+		example.com:
+			...
+		test.cz:
+			...
 ```
 
 ## Listeners
@@ -108,7 +109,7 @@ Or in plugins section [here](#plugins).
 
 ## Deploy
 
-See example [scripts here](https://github.com/contributte/deployer-extension/tree/master/examples). 
+See example [scripts here](https://github.com/contributte/deployer-extension/tree/master/examples).
 
 ### Automatic
 
@@ -148,9 +149,9 @@ use Contributte\Deployer;
 /** @var Deployer\Manager @inject */
 public $dm;
 
-public function actionDeploy() 
+public function actionDeploy()
 {
-    $this->dm->manulDeploy($config);
+	$this->dm->manulDeploy($config);
 }
 ```
 
@@ -167,8 +168,8 @@ $configurator->setDebugMode(TRUE);
 $configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()
-    ->addDirectory(__DIR__)
-    ->register();
+	->addDirectory(__DIR__)
+	->register();
 
 # Configs
 $configurator->addConfig(__DIR__ . '/config/config.neon');
@@ -187,7 +188,7 @@ $dm->deploy();
 
 This is prepared listener that help make maintenance mode easier.
 
-Plugin has two sections **rewrite** and **rename**. 
+Plugin has two sections **rewrite** and **rename**.
 
 You have to register to `before` and to `after` also (!).
 
@@ -197,13 +198,12 @@ Before: *backup origin file, rename destination file to source file*
 
 After: *revert rewriting*
 
-```yaml
+```neon
 deployer:
-    plugins:
-    
-        maintenance:
-            rewrite:
-                - [www/index.php, www/index.maintenance]
+	plugins:
+		maintenance:
+			rewrite:
+				- [www/index.php, www/index.maintenance]
 ```
 
 ### Rename
@@ -212,22 +212,21 @@ Before: *rename origin file to destination file*
 
 After: *revert renaming*
 
-```yaml
+```neon
 deployer:
-    plugins:
-    
-        maintenance:
-            rename:
-                - [www/.maintenance.php, www/maintenance.php]
+	plugins:
+		maintenance:
+			rename:
+				- [www/.maintenance.php, www/maintenance.php]
 ```
 
-You can combine rewriting and renaming together. 
+You can combine rewriting and renaming together.
 
 ## `ComposerInstallListener`
 
 This is prepared listener that runs command:
 
-```sh
+```bash
 composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
 ```
 
@@ -239,7 +238,7 @@ composer install --no-dev --prefer-dist --optimize-autoloader -d $DIR
 
 This is prepared listener that runs command:
 
-```sh
+```bash
 composer update --no-dev --prefer-dist --optimize-autoloader -d $DIR
 ```
 
