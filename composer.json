@@ -18,7 +18,8 @@
   "require-dev": {
     "ninjify/qa": "^0.8.0",
     "ninjify/nunjuck": "^0.2.0",
-    "mockery/mockery": "~1.1.0"
+    "mockery/mockery": "~1.1.0",
+    "squizlabs/php_codesniffer": "3.*"
   },
   "autoload": {
     "psr-4": {
