@@ -1,6 +1,6 @@
 {
-  "name": "contributte/deployer-extension",
-  "description": "Ftp-Deployment Extension for Nette",
+  "name": "kubomikita/deployer-extension",
+  "description": "Fork of Ftp-Deployment Extension for Nette",
   "type": "library",
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/contributte/deployer-extension",
