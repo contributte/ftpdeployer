@@ -12,8 +12,8 @@
   ],
   "require": {
     "php": ">=7.1",
-    "nette/di": "~3.0.0",
-    "dg/ftp-deployment": "~3.0.1"
+    "nette/di": "^3.0.2",
+    "dg/ftp-deployment": "^3.3.1"
   },
   "require-dev": {
     "ninjify/qa": "^0.8.0",
