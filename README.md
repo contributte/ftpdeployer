@@ -1,4 +1,4 @@
-![](https://heatbadger.now.sh/github/readme/contributte/ftpdeployer/?deprecated=1)
+![](https://heatbadger.now.sh/github/readme/contributte/deployer-extension/?deprecated=1)
 
 <p align=center>
     <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
@@ -19,7 +19,7 @@
 |---| --- |
 | Version | ![](https://badgen.net/packagist/v/contributte/deployer-extension) |
 | PHP | ![](https://badgen.net/packagist/php/contributte/deployer-extension) |
-| License | ![](https://badgen.net/github/license/contributte/ftpdeployer) |
+| License | ![](https://badgen.net/github/license/contributte/deployer-extension) |
 
 ## Usage
 
