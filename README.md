@@ -12,11 +12,11 @@
 
 ## Disclaimer
 
-| :warning: | This project is no longer being maintained. |
+| :warning: | This project is no longer being maintained.
 |---|---|
 
 | Composer | [`contributte/deployer-extension`](https://packagist.org/packages/contributte/deployer-extension) |
-|---| --- |
+|---|---|
 | Version | ![](https://badgen.net/packagist/v/contributte/deployer-extension) |
 | PHP | ![](https://badgen.net/packagist/php/contributte/deployer-extension) |
 | License | ![](https://badgen.net/github/license/contributte/ftpdeployer) |
